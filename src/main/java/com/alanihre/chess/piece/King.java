@@ -4,7 +4,7 @@ import com.alanihre.chess.Point;
 
 public class King extends Piece {
 
-    public King (Point position, PieceColor color) {
+    public King(Point position, PieceColor color) {
         super(position, color);
     }
 
@@ -17,7 +17,7 @@ public class King extends Piece {
     }
 
     public PieceType getType() {
-        return PieceType.KING ;
+        return PieceType.KING;
     }
 
     public boolean canMoveTo(Point newPosition) {

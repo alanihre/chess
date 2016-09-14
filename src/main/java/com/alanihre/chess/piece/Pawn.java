@@ -4,7 +4,7 @@ import com.alanihre.chess.Point;
 
 public class Pawn extends Piece {
 
-    public Pawn (Point position, PieceColor color) {
+    public Pawn(Point position, PieceColor color) {
         super(position, color);
     }
 

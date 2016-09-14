@@ -7,28 +7,20 @@ import java.util.List;
 
 public abstract class Piece {
 
-    public enum PieceColor {
-        BLACK, WHITE
-    }
-
-    enum PieceType {
-        PAWN, KNIGHT, KING, QUEEN, ROOK, BISHOP
-    }
-
     private Point position;
     private PieceColor color;
     private int numberOfMoves = 0;
+
+    Piece(Point position, PieceColor color) {
+        this.position = position;
+        this.color = color;
+    }
 
     public abstract boolean canMoveTo(Point newPosition);
 
     public abstract char getSymbol();
 
     public abstract PieceType getType(); //TODO: Remove?
-
-    Piece(Point position, PieceColor color) {
-        this.position = position;
-        this.color = color;
-    }
 
     public PieceColor getColor() {
         return color;
@@ -75,8 +67,8 @@ public abstract class Piece {
         Point piecePosition = getPosition();
         int piecePositionX = piecePosition.getX();
         int piecePositionY = piecePosition.getY();
-        int positionXDelta = newPosition.getX() - piecePositionX ;
-        int positionYDelta = newPosition.getY()- piecePositionY;
+        int positionXDelta = newPosition.getX() - piecePositionX;
+        int positionYDelta = newPosition.getY() - piecePositionY;
 
         if (positionXDelta == 0) {
             int deltaSign = Integer.signum(positionYDelta);
@@ -117,5 +109,13 @@ public abstract class Piece {
         }
 
         return movementPath;
+    }
+
+    public enum PieceColor {
+        BLACK, WHITE
+    }
+
+    enum PieceType {
+        PAWN, KNIGHT, KING, QUEEN, ROOK, BISHOP
     }
 }

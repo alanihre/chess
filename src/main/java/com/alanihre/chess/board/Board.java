@@ -5,11 +5,11 @@ import com.alanihre.chess.piece.Piece;
 
 public abstract class Board {
 
-    protected Piece[][] squares;
     protected final int width;
     protected final int height;
     private final char[] horizontalLabels;
     private final char[] verticalLabels;
+    protected Piece[][] squares;
 
     public Board(int width, int height) {
         this.width = width;
@@ -37,12 +37,15 @@ public abstract class Board {
     public int getWidth() {
         return width;
     }
+
     public int getHeight() {
         return height;
     }
+
     public char[] getHorizontalLabels() {
         return horizontalLabels;
     }
+
     public char[] getVerticalLabels() {
         return verticalLabels;
     }

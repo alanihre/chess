@@ -4,6 +4,7 @@ import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
 import com.alanihre.chess.game.Game;
 import com.alanihre.chess.piece.Piece;
+
 import java.util.Scanner;
 
 public class TerminalGameIOInterface implements GameIOInterface {

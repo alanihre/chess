@@ -4,7 +4,7 @@ import com.alanihre.chess.Point;
 
 public class Rook extends Piece {
 
-    public Rook (Point position, PieceColor color) {
+    public Rook(Point position, PieceColor color) {
         super(position, color);
     }
 

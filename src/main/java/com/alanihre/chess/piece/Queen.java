@@ -4,7 +4,7 @@ import com.alanihre.chess.Point;
 
 public class Queen extends Piece {
 
-    public Queen (Point position, PieceColor color) {
+    public Queen(Point position, PieceColor color) {
         super(position, color);
     }
 

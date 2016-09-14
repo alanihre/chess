@@ -10,6 +10,10 @@ public class Point {
         this.y = y;
     }
 
+    public static boolean equalPoints(Point point1, Point point2) {
+        return point1.getX() == point2.getX() && point1.getY() == point2.getY();
+    }
+
     public int getX() {
         return x;
     }
@@ -21,9 +25,5 @@ public class Point {
     @Override
     public String toString() {
         return ("(" + x + "," + y + ")");
-    }
-
-    public static boolean equalPoints(Point point1, Point point2) {
-        return point1.getX() == point2.getX() && point1.getY() == point2.getY();
     }
 }
