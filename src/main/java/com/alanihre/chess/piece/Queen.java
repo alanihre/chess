@@ -8,6 +8,10 @@ public class Queen extends Piece {
         super(position, color);
     }
 
+    public String getPieceName() {
+        return "queen";
+    }
+
     public char getSymbol() {
         if (getColor() == PieceColor.WHITE) {
             return '♛';

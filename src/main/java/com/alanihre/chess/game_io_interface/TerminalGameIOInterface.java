@@ -39,12 +39,15 @@ public class TerminalGameIOInterface implements GameIOInterface {
     }
 
     public void pieceCaptured(Piece piece, String coordinate) {
-        //TODO: Print piece type
-        System.out.println("Piece captured at " + coordinate);
+        String pieceName = piece.getPieceName();
+        String pieceNameCapitalized = pieceName.substring(0, 1).toUpperCase() + pieceName.substring(1);
+        System.out.println(pieceNameCapitalized + " captured at " + coordinate);
     }
 
     public void pieceMoved(Piece piece, String coordinate) {
-        System.out.println("Piece moved to " + coordinate);
+        String pieceName = piece.getPieceName();
+        String pieceNameCapitalized = pieceName.substring(0, 1).toUpperCase() + pieceName.substring(1);
+        System.out.println(pieceNameCapitalized + " moved to " + coordinate);
         printBoard();
     }
 

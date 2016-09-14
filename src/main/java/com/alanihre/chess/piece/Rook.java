@@ -8,6 +8,10 @@ public class Rook extends Piece {
         super(position, color);
     }
 
+    public String getPieceName() {
+        return "rook";
+    }
+
     public char getSymbol() {
         if (getColor() == PieceColor.WHITE) {
             return '♜';
