@@ -20,8 +20,6 @@ public abstract class Piece {
 
     public abstract char getSymbol();
 
-    public abstract PieceType getType(); //TODO: Remove?
-
     public PieceColor getColor() {
         return color;
     }

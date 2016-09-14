@@ -16,10 +16,6 @@ public class Queen extends Piece {
         }
     }
 
-    public PieceType getType() {
-        return PieceType.QUEEN;
-    }
-
     public boolean canMoveTo(Point newPosition) {
         //The queen can move like both the rook and the bishop
 

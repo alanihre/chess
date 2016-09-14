@@ -15,11 +15,7 @@ public class Rook extends Piece {
             return '♖';
         }
     }
-
-    public PieceType getType() {
-        return PieceType.ROOK;
-    }
-
+    
     public boolean canMoveTo(Point newPosition) {
         //Rooks can be moved any number of squares up, down, left or right.
 

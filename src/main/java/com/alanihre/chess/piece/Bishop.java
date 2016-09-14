@@ -16,10 +16,6 @@ public class Bishop extends Piece {
         }
     }
 
-    public PieceType getType() {
-        return PieceType.BISHOP;
-    }
-
     public boolean canMoveTo(Point newPosition) {
         //Bishops can only move diagonally which means that the delta of movement
         //in X and Y should be the same.

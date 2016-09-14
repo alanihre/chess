@@ -19,10 +19,6 @@ public class Knight extends Piece {
         }
     }
 
-    public PieceType getType() {
-        return PieceType.KNIGHT;
-    }
-
     @Override
     public boolean canLeap() {
         return true;

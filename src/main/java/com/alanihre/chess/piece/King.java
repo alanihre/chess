@@ -16,10 +16,6 @@ public class King extends Piece {
         }
     }
 
-    public PieceType getType() {
-        return PieceType.KING;
-    }
-
     public boolean canMoveTo(Point newPosition) {
         //The king can move one step in all directions.
 
