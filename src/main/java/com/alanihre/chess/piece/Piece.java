@@ -112,8 +112,4 @@ public abstract class Piece {
     public enum PieceColor {
         BLACK, WHITE
     }
-
-    enum PieceType {
-        PAWN, KNIGHT, KING, QUEEN, ROOK, BISHOP
-    }
 }
