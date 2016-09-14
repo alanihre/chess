@@ -95,6 +95,12 @@ public abstract class Game {
             return false;
         }
 
+        if (piece.getColor() != getCurrentMovingPieceColor()) {
+            //TODO: Throw error
+            System.out.println("The piece at the entered position can't be moved by you. It has wrong color.");
+            return false;
+        }
+
         if (!piece.canMoveTo(newPosition)) {
             //TODO: Throw error
             System.out.println("This piece is not allowed to move to the entered position");
