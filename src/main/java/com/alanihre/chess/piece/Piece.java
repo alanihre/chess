@@ -1,11 +1,13 @@
-package com.alanihre.chess;
+package com.alanihre.chess.piece;
+
+import com.alanihre.chess.Point;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Piece {
 
-    enum PieceColor {
+    public enum PieceColor {
         BLACK, WHITE
     }
 
@@ -28,11 +30,11 @@ public abstract class Piece {
         this.color = color;
     }
 
-    PieceColor getColor() {
+    public PieceColor getColor() {
         return color;
     }
 
-    Point getPosition() {
+    public Point getPosition() {
         return position;
     }
 
@@ -44,7 +46,7 @@ public abstract class Piece {
         numberOfMoves++;
     }
 
-    boolean canLeap() {
+    public boolean canLeap() {
         return false;
     }
 

@@ -1,6 +1,9 @@
 package com.alanihre.chess;
 
-import java.awt.*;
+import com.alanihre.chess.game.ClassicChessGame;
+import com.alanihre.chess.game.Game;
+import com.alanihre.chess.game_io_interface.GameIOInterface;
+import com.alanihre.chess.game_io_interface.TerminalGameIOInterface;
 
 /**
  * Hello world!

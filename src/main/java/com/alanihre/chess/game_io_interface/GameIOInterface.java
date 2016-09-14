@@ -1,4 +1,7 @@
-package com.alanihre.chess;
+package com.alanihre.chess.game_io_interface;
+
+import com.alanihre.chess.game.Game;
+import com.alanihre.chess.piece.Piece;
 
 public interface GameIOInterface {
 

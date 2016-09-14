@@ -1,7 +1,9 @@
-package com.alanihre.chess;
+package com.alanihre.chess.game_io_interface;
 
-import com.sun.deploy.util.BlackList;
-
+import com.alanihre.chess.Point;
+import com.alanihre.chess.board.Board;
+import com.alanihre.chess.game.Game;
+import com.alanihre.chess.piece.Piece;
 import java.util.Scanner;
 
 public class TerminalGameIOInterface implements GameIOInterface {

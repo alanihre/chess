@@ -1,4 +1,7 @@
-package com.alanihre.chess;
+package com.alanihre.chess.board;
+
+import com.alanihre.chess.Point;
+import com.alanihre.chess.piece.Piece;
 
 public abstract class Board {
 
@@ -29,7 +32,7 @@ public abstract class Board {
 
     }
 
-    abstract void setupBoard();
+    public abstract void setupBoard();
 
     public int getWidth() {
         return width;
@@ -56,7 +59,7 @@ public abstract class Board {
         squares[xPosition][yPosition] = null;
     }
 
-    protected Piece getPieceAtPosition(Point position) {
+    public Piece getPieceAtPosition(Point position) {
         return squares[position.getX()][position.getY()];
     }
 

@@ -1,6 +1,13 @@
-package com.alanihre.chess;
+package com.alanihre.chess.board;
 
-import java.util.List;
+import com.alanihre.chess.Point;
+import com.alanihre.chess.piece.Bishop;
+import com.alanihre.chess.piece.King;
+import com.alanihre.chess.piece.Knight;
+import com.alanihre.chess.piece.Pawn;
+import com.alanihre.chess.piece.Piece;
+import com.alanihre.chess.piece.Queen;
+import com.alanihre.chess.piece.Rook;
 
 public class ClassicBoard extends Board {
 

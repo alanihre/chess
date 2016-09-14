@@ -1,4 +1,6 @@
-package com.alanihre.chess;
+package com.alanihre.chess.piece;
+
+import com.alanihre.chess.Point;
 
 public class Bishop extends Piece {
 

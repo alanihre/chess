@@ -1,4 +1,6 @@
-package com.alanihre.chess;
+package com.alanihre.chess.piece;
+
+import com.alanihre.chess.Point;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    boolean canLeap() {
+    public boolean canLeap() {
         return true;
     }
 
