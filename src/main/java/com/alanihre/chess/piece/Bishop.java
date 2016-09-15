@@ -8,6 +8,10 @@ public class Bishop extends Piece {
         super(position, color);
     }
 
+    public String getPieceName() {
+        return "bishop";
+    }
+
     public char getSymbol() {
         if (getColor() == PieceColor.WHITE) {
             return '♝';

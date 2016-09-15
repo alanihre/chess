@@ -11,6 +11,10 @@ public class Knight extends Piece {
         super(position, color);
     }
 
+    public String getPieceName() {
+        return "knight";
+    }
+
     public char getSymbol() {
         if (getColor() == PieceColor.WHITE) {
             return '♞';

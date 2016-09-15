@@ -8,6 +8,10 @@ public class Pawn extends Piece {
         super(position, color);
     }
 
+    public String getPieceName() {
+        return "pawn";
+    }
+
     public char getSymbol() {
         if (getColor() == PieceColor.WHITE) {
             return '♟';
