@@ -9,11 +9,10 @@ import static org.junit.Assert.assertTrue;
 
 public class QueenTest {
 
-    private Queen queen;
-
     private static Piece.PieceColor PIECE_COLOR = Piece.PieceColor.BLACK;
     private static int PIECE_START_POSITION_X = 2;
     private static int PIECE_START_POSITION_Y = 2;
+    private Queen queen;
 
     @Before
     public void setUp() {

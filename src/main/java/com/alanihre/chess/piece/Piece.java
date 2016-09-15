@@ -56,7 +56,7 @@ public abstract class Piece {
 
         if (positionXDelta == positionYDelta) {
             return calculateDiagonalMovementPath(newPosition);
-        } else if (positionXDelta == 0 || positionYDelta == 0){
+        } else if (positionXDelta == 0 || positionYDelta == 0) {
             return calculateSingleDirectionMovementPath(newPosition);
         } else {
             throw new PieceMovementNotSupportedException("Movement from " + getPosition().toString() + " to " + newPosition.toString() + " can not be handled by getMovementPathToPosition(). Please implement a custom method for this in your subclass of Piece.");

@@ -10,11 +10,10 @@ import static org.junit.Assert.assertTrue;
 
 public class KingTest {
 
-    private King king;
-
     private static Piece.PieceColor PIECE_COLOR = Piece.PieceColor.BLACK;
     private static int PIECE_START_POSITION_X = 2;
     private static int PIECE_START_POSITION_Y = 2;
+    private King king;
 
     @Before
     public void setUp() {

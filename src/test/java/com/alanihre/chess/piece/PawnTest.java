@@ -10,11 +10,10 @@ import static org.junit.Assert.assertTrue;
 
 public class PawnTest {
 
-    private Pawn pawn;
-
     private static Piece.PieceColor PIECE_COLOR = Piece.PieceColor.BLACK;
     private static int PIECE_START_POSITION_X = 2;
     private static int PIECE_START_POSITION_Y = 2;
+    private Pawn pawn;
 
     @Before
     public void setUp() {

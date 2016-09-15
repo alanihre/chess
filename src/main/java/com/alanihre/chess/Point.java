@@ -19,7 +19,7 @@ public class Point {
             return false;
         }
 
-        if (getClass() != object.getClass()){
+        if (getClass() != object.getClass()) {
             return false;
         }
         Point point = (Point) object;

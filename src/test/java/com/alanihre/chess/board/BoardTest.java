@@ -1,18 +1,19 @@
 package com.alanihre.chess.board;
 
-import org.junit.Test;
-import org.junit.Before;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 import com.alanihre.chess.Point;
 import com.alanihre.chess.piece.Pawn;
 import com.alanihre.chess.piece.Piece;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 public class BoardTest {
 

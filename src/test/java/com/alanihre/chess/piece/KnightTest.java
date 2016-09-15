@@ -5,16 +5,14 @@ import com.alanihre.chess.Point;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class KnightTest {
 
-    private Knight knight;
-
     private static Piece.PieceColor PIECE_COLOR = Piece.PieceColor.BLACK;
     private static int PIECE_START_POSITION_X = 2;
     private static int PIECE_START_POSITION_Y = 2;
+    private Knight knight;
 
     @Before
     public void setUp() {

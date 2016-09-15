@@ -10,11 +10,10 @@ import static org.junit.Assert.assertTrue;
 
 public class RookTest {
 
-    private Rook rook;
-
     private static Piece.PieceColor PIECE_COLOR = Piece.PieceColor.BLACK;
     private static int PIECE_START_POSITION_X = 2;
     private static int PIECE_START_POSITION_Y = 2;
+    private Rook rook;
 
     @Before
     public void setUp() {

@@ -2,25 +2,26 @@ package com.alanihre.chess.piece;
 
 import com.alanihre.chess.Point;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.Test;
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 public class PieceTest {
-
-    private Piece piece;
 
     private static Piece.PieceColor PIECE_COLOR = Piece.PieceColor.BLACK;
     private static int PIECE_START_POSITION_X = 2;
     private static int PIECE_START_POSITION_Y = 2;
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    private Piece piece;
 
     @Before
     public void setUp() {
