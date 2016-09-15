@@ -1,18 +1,19 @@
-package com.alanihre.chess.game_io_interface;
+package com.alanihre.chess.interfaces;
 
 import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
 import com.alanihre.chess.game.Game;
+import com.alanihre.chess.game.GameDelegate;
 import com.alanihre.chess.piece.Piece;
 
 import java.util.Scanner;
 
-public class TerminalGameIOInterface implements GameIOInterface {
+public class TerminalGameInterface implements GameDelegate {
 
     private Game game;
     private Scanner scanner;
 
-    public TerminalGameIOInterface() {
+    public TerminalGameInterface() {
         scanner = new Scanner(System.in);
     }
 

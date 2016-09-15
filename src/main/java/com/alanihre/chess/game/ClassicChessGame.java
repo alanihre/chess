@@ -3,14 +3,13 @@ package com.alanihre.chess.game;
 import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
 import com.alanihre.chess.board.ClassicBoard;
-import com.alanihre.chess.game_io_interface.GameIOInterface;
 import com.alanihre.chess.piece.Piece;
 
 import java.util.List;
 
 public class ClassicChessGame extends Game {
 
-    public ClassicChessGame(GameIOInterface ioInterface) {
+    public ClassicChessGame(GameDelegate ioInterface) {
         super(ioInterface);
     }
 

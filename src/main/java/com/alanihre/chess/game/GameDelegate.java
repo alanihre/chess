@@ -1,9 +1,9 @@
-package com.alanihre.chess.game_io_interface;
+package com.alanihre.chess.game;
 
 import com.alanihre.chess.game.Game;
 import com.alanihre.chess.piece.Piece;
 
-public interface GameIOInterface {
+public interface GameDelegate {
 
     void gameReady(Game game);
 

@@ -2,16 +2,15 @@ package com.alanihre.chess.game;
 
 import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
-import com.alanihre.chess.game_io_interface.GameIOInterface;
 import com.alanihre.chess.piece.Piece;
 
 public abstract class Game {
 
-    private final GameIOInterface ioInterface;
+    private final GameDelegate ioInterface;
     private Board board;
     private Piece.PieceColor currentMovingPieceColor;
 
-    public Game(GameIOInterface ioInterface) {
+    public Game(GameDelegate ioInterface) {
         this.ioInterface = ioInterface;
 
         this.board = initializeBoard();
@@ -29,7 +28,7 @@ public abstract class Game {
         return board;
     }
 
-    protected GameIOInterface getIoInterface() {
+    protected GameDelegate getIoInterface() {
         return ioInterface;
     }
 
