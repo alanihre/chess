@@ -24,8 +24,8 @@ public class Queen extends Piece {
         //The queen can move like both the rook and the bishop
 
         Point piecePosition = getPosition();
-        int positionXDelta = newPosition.getX() - piecePosition.getX();
-        int positionYDelta = newPosition.getY() - piecePosition.getY();
+        int positionXDelta = Math.abs(newPosition.getX() - piecePosition.getX());
+        int positionYDelta = Math.abs(newPosition.getY() - piecePosition.getY());
 
         return newPosition.getX() == piecePosition.getX()
                 || newPosition.getY() == piecePosition.getY()
