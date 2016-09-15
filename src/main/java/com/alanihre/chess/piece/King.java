@@ -20,8 +20,8 @@ public class King extends Piece {
         //The king can move one step in all directions.
 
         Point piecePosition = getPosition();
-        int positionXDelta = newPosition.getX() - piecePosition.getX();
-        int positionYDelta = newPosition.getY() - piecePosition.getX();
+        int positionXDelta = Math.abs(newPosition.getX() - piecePosition.getX());
+        int positionYDelta = Math.abs(newPosition.getY() - piecePosition.getY());
 
         return positionXDelta <= 1 && positionYDelta <= 1;
     }

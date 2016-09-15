@@ -10,8 +10,21 @@ public class Point {
         this.y = y;
     }
 
-    public static boolean equalPoints(Point point1, Point point2) {
-        return point1.getX() == point2.getX() && point1.getY() == point2.getY();
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null) {
+            return false;
+        }
+
+        if (getClass() != object.getClass()){
+            return false;
+        }
+        Point point = (Point) object;
+
+        return point.getX() == getX() && point.getY() == getY();
     }
 
     public int getX() {

@@ -47,7 +47,7 @@ public abstract class Piece {
         this.position = position;
     }
 
-    //Calculates movement path for pieces moving any number of steps in one direction or diagonally only..
+    //Calculates movement path for pieces moving any number of steps in one direction or diagonally only.
     //For other movement patterns please override.
     public List<Point> getMovementPathToPosition(Point newPosition) {
         Point piecePosition = getPosition();
@@ -55,13 +55,15 @@ public abstract class Piece {
         int positionYDelta = newPosition.getY() - piecePosition.getY();
 
         if (positionXDelta == positionYDelta) {
-            return calculateDiangoalMovementPath(newPosition);
-        } else {
+            return calculateDiagonalMovementPath(newPosition);
+        } else if (positionXDelta == 0 || positionYDelta == 0){
             return calculateSingleDirectionMovementPath(newPosition);
+        } else {
+            throw new PieceMovementNotSupportedException("Movement from " + getPosition().toString() + " to " + newPosition.toString() + " can not be handled by getMovementPathToPosition(). Please implement a custom method for this in your subclass of Piece.");
         }
     }
 
-    private List<Point> calculateSingleDirectionMovementPath(Point newPosition) {
+    List<Point> calculateSingleDirectionMovementPath(Point newPosition) {
         List<Point> movementPath = new ArrayList<Point>();
 
         Point piecePosition = getPosition();
@@ -91,7 +93,7 @@ public abstract class Piece {
         return movementPath;
     }
 
-    private List<Point> calculateDiangoalMovementPath(Point newPosition) {
+    List<Point> calculateDiagonalMovementPath(Point newPosition) {
         List<Point> movementPath = new ArrayList<Point>();
 
         Point piecePosition = getPosition();

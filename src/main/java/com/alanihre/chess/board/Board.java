@@ -5,31 +5,20 @@ import com.alanihre.chess.piece.Piece;
 
 public abstract class Board {
 
-    protected final int width;
-    protected final int height;
+    private final int width;
+    private final int height;
     private final char[] horizontalLabels;
     private final char[] verticalLabels;
-    protected Piece[][] squares;
+    private Piece[][] squares;
 
-    public Board(int width, int height) {
+    protected Board(int width, int height) {
         this.width = width;
         this.height = height;
 
         squares = new Piece[width][height];
 
-        horizontalLabels = new char[width];
-        for (int i = 0; i < width; i++) {
-            //97 is unicode value for 'a'
-            horizontalLabels[i] = (char) (97 + i);
-        }
-
-        verticalLabels = new char[height];
-        //Labels are in reverse order since vertical chess labels start from the highest number from the top
-        //TODO: Optimize
-        for (int i = height - 1; i >= 0; i--) {
-            verticalLabels[height - 1 - i] = Character.forDigit(i + 1, 10);
-        }
-
+        horizontalLabels = createHorizontalLabels();
+        verticalLabels = createVerticalLabels();
     }
 
     public abstract void setupBoard();
@@ -40,6 +29,25 @@ public abstract class Board {
 
     public int getHeight() {
         return height;
+    }
+
+    private char[] createHorizontalLabels() {
+        char[] horizontalLabels = new char[width];
+        for (int i = 0; i < width; i++) {
+            //97 is unicode value for 'a'
+            horizontalLabels[i] = (char) (97 + i);
+        }
+        return horizontalLabels;
+    }
+
+    private char[] createVerticalLabels() {
+        char[] verticalLabels = new char[height];
+        //Labels are in reverse order since vertical chess labels start from the highest number from the top
+        //TODO: Optimize
+        for (int i = height - 1; i >= 0; i--) {
+            verticalLabels[height - 1 - i] = Character.forDigit(i + 1, 10);
+        }
+        return verticalLabels;
     }
 
     public char[] getHorizontalLabels() {
@@ -67,21 +75,21 @@ public abstract class Board {
     }
 
     public boolean positionWithinBoardBounds(Point position) {
-        return position.getX() <= getWidth()
+        return position.getX() < getWidth()
                 && position.getX() > 0
-                && position.getY() <= getHeight()
+                && position.getY() < getHeight()
                 && position.getY() > 0;
     }
 
-    public String boardPointToReadableCoordinate(Point point) {
+    public String boardPointToLabeledPoint(Point point) {
         String xLabel = String.valueOf(horizontalLabels[point.getX()]);
         String yLabel = String.valueOf(verticalLabels[point.getY()]);
         return xLabel + yLabel;
     }
 
-    public Point readableCoordinateToPoint(String coordinate) {
-        char xLabel = coordinate.charAt(0);
-        char yLabel = coordinate.charAt(1);
+    public Point labeledPointToBoardPoint(String labeledPoint) {
+        char xLabel = labeledPoint.charAt(0);
+        char yLabel = labeledPoint.charAt(1);
         int pointX = -1;
         for (int i = 0; i < horizontalLabels.length; i++) {
             if (horizontalLabels[i] == xLabel) {
