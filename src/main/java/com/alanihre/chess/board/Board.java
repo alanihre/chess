@@ -43,9 +43,8 @@ public abstract class Board {
     private char[] createVerticalLabels() {
         char[] verticalLabels = new char[height];
         //Labels are in reverse order since vertical chess labels start from the highest number from the top
-        //TODO: Optimize
-        for (int i = height - 1; i >= 0; i--) {
-            verticalLabels[height - 1 - i] = Character.forDigit(i + 1, 10);
+        for (int i = height; i > 0; i--) {
+            verticalLabels[height - i] = Character.forDigit(i, 10);
         }
         return verticalLabels;
     }
