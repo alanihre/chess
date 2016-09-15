@@ -17,9 +17,10 @@ public abstract class Game {
 
         currentMovingPieceColor = startingPieceColor();
 
-        this.getDelegate().gameReady(this);
-
-        getDelegate().requestMove(currentMovingPieceColor);
+        if (getDelegate() != null) {
+            this.getDelegate().gameReady(this);
+            getDelegate().requestMove(currentMovingPieceColor);
+        }
     }
 
     protected abstract Board initializeBoard();
@@ -78,10 +79,14 @@ public abstract class Game {
         getBoard().addPiece(piece);
 
         String readableCoordinate = getBoard().boardPointToLabeledPoint(piece.getPosition());
-        getDelegate().pieceMoved(piece, readableCoordinate);
+        if (getDelegate() != null) {
+            getDelegate().pieceMoved(piece, readableCoordinate);
+        }
 
         prepareForNextMove();
-        getDelegate().requestMove(getCurrentMovingPieceColor());
+        if (getDelegate() != null) {
+            getDelegate().requestMove(getCurrentMovingPieceColor());
+        }
     }
 
     abstract void prepareForNextMove();
@@ -113,6 +118,8 @@ public abstract class Game {
     protected void capturePiece(Piece piece) {
         getBoard().removePiece(piece);
         String readableCoordinate = getBoard().boardPointToLabeledPoint(piece.getPosition());
-        getDelegate().pieceCaptured(piece, readableCoordinate);
+        if (getDelegate() != null) {
+            getDelegate().pieceCaptured(piece, readableCoordinate);
+        }
     }
 }
