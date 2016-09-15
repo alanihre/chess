@@ -21,12 +21,12 @@ public class Bishop extends Piece {
     }
 
     public boolean canMoveTo(Point newPosition) {
-        //Bishops can only move diagonally which means that the delta of movement
-        //in X and Y should be the same.
+        //Bishops can only move diagonally which means that the absolute value of the delta
+        //of movement in X and Y should be the same.
 
         Point piecePosition = getPosition();
-        int positionXDelta = newPosition.getX() - piecePosition.getX();
-        int positionYDelta = newPosition.getY() - piecePosition.getY();
+        int positionXDelta = Math.abs(newPosition.getX() - piecePosition.getX());
+        int positionYDelta = Math.abs(newPosition.getY() - piecePosition.getY());
 
         return positionXDelta == positionYDelta;
     }
