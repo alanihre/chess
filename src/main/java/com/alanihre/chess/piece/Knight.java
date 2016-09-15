@@ -32,13 +32,12 @@ public class Knight extends Piece {
         //Knights can move two steps forward and one step aside in all directions.
 
         Point piecePosition = getPosition();
-        int positionXDelta = newPosition.getX() - piecePosition.getX();
-        int positionYDelta = newPosition.getY() - piecePosition.getY();
+        int positionXDelta = Math.abs(newPosition.getX() - piecePosition.getX());
+        int positionYDelta = Math.abs(newPosition.getY() - piecePosition.getY());
 
         return (positionXDelta == 2 && positionYDelta == 1) || (positionXDelta == 1 && positionYDelta == 2);
     }
 
-    //TODO: Not necessary since knights can leap??
     @Override
     public List<Point> getMovementPathToPosition(Point newPosition) {
         List<Point> movementPath = new ArrayList<Point>();
