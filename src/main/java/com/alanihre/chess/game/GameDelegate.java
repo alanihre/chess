@@ -12,6 +12,5 @@ public interface GameDelegate {
 
     void pieceMoved(Piece piece, String coordinate);
     //void gameEnded(Reason); //TODO: Implement
-    //public void moveRejected(Reason); //TODO: Implement
 
 }

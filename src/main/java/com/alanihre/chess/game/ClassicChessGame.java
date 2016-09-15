@@ -35,9 +35,7 @@ public class ClassicChessGame extends Game {
                 if (pieceAtPosition != null) {
                     //If this is the last move in the path; check if the piece there can be captured
                     if (i != numberOfMoves - 1 || pieceAtPosition.getColor() == piece.getColor()) {
-                        //TODO: Throw error
-                        System.out.println("There are other pieces blocking the movement");
-                        return false;
+                        throw new InvalidMoveException("There are other pieces blocking the movement");
                     }
                 }
             }

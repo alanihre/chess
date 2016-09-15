@@ -51,21 +51,17 @@ public abstract class Game {
 
         //Check if any movement was made at all
         if (oldPositionPoint.equals(newPositionPoint)) {
-            //TODO: Throw error
-            System.out.println("Old and new position are equal");
-            return;
+            throw new InvalidMoveException("Old and new position are equal");
         }
 
         Piece piece = getBoard().getPieceAtPosition(oldPositionPoint);
         if (piece == null) {
-            //TODO: Throw error
-            System.out.println("There is no piece at the entered position");
-            return;
+            throw new InvalidMoveException("There is no piece at the entered position");
         }
 
         if (!canMovePiece(piece, newPositionPoint)) {
-            //TODO: Throw/bubble error
-            return;
+            //This exception should never be thrown since canMovePiece() should throw exceptions movement errors.
+            throw new InvalidMoveException("The move is not allowed");
         }
 
         //Check if piece at target position can be captured
@@ -93,21 +89,15 @@ public abstract class Game {
 
     protected boolean canMovePiece(Piece piece, Point newPosition) {
         if (getBoard().positionWithinBoardBounds(newPosition)) {
-            //TODO: Throw error
-            System.out.println("New position is outside board bounds");
-            return false;
+            throw new InvalidMoveException("New position is outside board bounds");
         }
 
         if (piece.getColor() != getCurrentMovingPieceColor()) {
-            //TODO: Throw error
-            System.out.println("The piece at the entered position can't be moved by you. It has wrong color.");
-            return false;
+            throw new InvalidMoveException("The piece at the entered position can't be moved by you. It has wrong color.");
         }
 
         if (!piece.canMoveTo(newPosition)) {
-            //TODO: Throw error
-            System.out.println("This piece is not allowed to move to the entered position");
-            return false;
+            throw new InvalidMoveException("This piece is not allowed to move to the entered position");
         }
 
         return true;
