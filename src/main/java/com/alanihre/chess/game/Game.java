@@ -6,20 +6,20 @@ import com.alanihre.chess.piece.Piece;
 
 public abstract class Game {
 
-    private final GameDelegate ioInterface;
+    private final GameDelegate delegate;
     private Board board;
     private Piece.PieceColor currentMovingPieceColor;
 
-    public Game(GameDelegate ioInterface) {
-        this.ioInterface = ioInterface;
+    public Game(GameDelegate delegate) {
+        this.delegate = delegate;
 
         this.board = initializeBoard();
 
         currentMovingPieceColor = startingPieceColor();
 
-        this.getIoInterface().gameReady(this);
+        this.getDelegate().gameReady(this);
 
-        getIoInterface().requestMove(currentMovingPieceColor);
+        getDelegate().requestMove(currentMovingPieceColor);
     }
 
     protected abstract Board initializeBoard();
@@ -28,8 +28,8 @@ public abstract class Game {
         return board;
     }
 
-    protected GameDelegate getIoInterface() {
-        return ioInterface;
+    protected GameDelegate getDelegate() {
+        return delegate;
     }
 
     protected Piece.PieceColor getCurrentMovingPieceColor() {
@@ -78,10 +78,10 @@ public abstract class Game {
         getBoard().addPiece(piece);
 
         String readableCoordinate = getBoard().boardPointToLabeledPoint(piece.getPosition());
-        getIoInterface().pieceMoved(piece, readableCoordinate);
+        getDelegate().pieceMoved(piece, readableCoordinate);
 
         prepareForNextMove();
-        getIoInterface().requestMove(getCurrentMovingPieceColor());
+        getDelegate().requestMove(getCurrentMovingPieceColor());
     }
 
     abstract void prepareForNextMove();
@@ -113,6 +113,6 @@ public abstract class Game {
     protected void capturePiece(Piece piece) {
         getBoard().removePiece(piece);
         String readableCoordinate = getBoard().boardPointToLabeledPoint(piece.getPosition());
-        getIoInterface().pieceCaptured(piece, readableCoordinate);
+        getDelegate().pieceCaptured(piece, readableCoordinate);
     }
 }

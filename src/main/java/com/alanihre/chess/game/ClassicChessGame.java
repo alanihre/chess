@@ -9,8 +9,8 @@ import java.util.List;
 
 public class ClassicChessGame extends Game {
 
-    public ClassicChessGame(GameDelegate ioInterface) {
-        super(ioInterface);
+    public ClassicChessGame(GameDelegate delegate) {
+        super(delegate);
     }
 
     protected Board initializeBoard() {

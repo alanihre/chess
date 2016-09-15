@@ -7,7 +7,7 @@ import com.alanihre.chess.interfaces.TerminalGameInterface;
 
 public class Main {
     public static void main(String[] args) {
-        GameDelegate ioInterface = new TerminalGameInterface();
-        Game game = new ClassicChessGame(ioInterface);
+        GameDelegate delegate = new TerminalGameInterface();
+        Game game = new ClassicChessGame(delegate);
     }
 }

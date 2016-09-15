@@ -1,6 +1,5 @@
 package com.alanihre.chess.game;
 
-import com.alanihre.chess.game.Game;
 import com.alanihre.chess.piece.Piece;
 
 public interface GameDelegate {
