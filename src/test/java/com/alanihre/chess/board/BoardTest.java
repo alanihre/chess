@@ -50,10 +50,10 @@ public class BoardTest {
 
     @Test
     public void testPositionWithinBoardBounds() {
-        Point pointOutsideBoardBounds = new Point(8, 9);
+        Point pointOutsideBoardBounds = new Point(BOARD_SIZE_WIDTH + 1, BOARD_SIZE_HEIGHT + 1);
         assertFalse(board.positionWithinBoardBounds(pointOutsideBoardBounds));
 
-        Point pointInsideBoardBounds = new Point(1, 1);
+        Point pointInsideBoardBounds = new Point(BOARD_SIZE_WIDTH - 1, BOARD_SIZE_HEIGHT - 1);
         assertTrue(board.positionWithinBoardBounds(pointInsideBoardBounds));
     }
 
