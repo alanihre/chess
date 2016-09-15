@@ -5,7 +5,7 @@ import com.alanihre.chess.Point;
 public class Bishop extends Piece {
 
     public Bishop(Point position, PieceColor color) {
-        super(position, color);
+        super(PieceType.BISHOP, position, color);
     }
 
     public String getPieceName() {

@@ -5,7 +5,7 @@ import com.alanihre.chess.Point;
 public class Rook extends Piece {
 
     public Rook(Point position, PieceColor color) {
-        super(position, color);
+        super(PieceType.ROOK, position, color);
     }
 
     public String getPieceName() {

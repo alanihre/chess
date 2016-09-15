@@ -8,7 +8,7 @@ import java.util.List;
 public class Knight extends Piece {
 
     public Knight(Point position, PieceColor color) {
-        super(position, color);
+        super(PieceType.KNIGHT, position, color);
     }
 
     public String getPieceName() {

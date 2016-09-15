@@ -1,4 +1,4 @@
-package com.alanihre.chess.interfaces;
+package com.alanihre.chesscmd;
 
 import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
@@ -8,12 +8,12 @@ import com.alanihre.chess.piece.Piece;
 
 import java.util.Scanner;
 
-public class TerminalGameInterface implements GameDelegate {
+public class TerminalChess implements GameDelegate {
 
     private Game game;
     private Scanner scanner;
 
-    public TerminalGameInterface() {
+    public TerminalChess() {
         scanner = new Scanner(System.in);
     }
 
@@ -73,7 +73,7 @@ public class TerminalGameInterface implements GameDelegate {
 
                 Piece piece = board.getPieceAtPosition(new Point(pieceIndex, i));
                 if (piece != null) {
-                    char pieceSymbol = piece.getSymbol();
+                    char pieceSymbol = symbolForPiece(piece);
                     System.out.print(pieceSymbol);
                 } else {
                     System.out.print(' ');
@@ -83,5 +83,61 @@ public class TerminalGameInterface implements GameDelegate {
 
         System.out.println();
         System.out.println();
+    }
+
+    private char symbolForPiece(Piece piece) {
+        switch (piece.getType()) {
+            case BISHOP: {
+                switch (piece.getColor()) {
+                    case WHITE:
+                        return '♝';
+                    case BLACK:
+                        return '♗';
+                }
+                break;
+            }
+            case KING: {
+                switch (piece.getColor()) {
+                    case WHITE:
+                        return '♚';
+                    case BLACK:
+                        return '♔';
+                }
+            }
+            case KNIGHT: {
+                switch (piece.getColor()) {
+                    case WHITE:
+                        return '♞';
+                    case BLACK:
+                        return '♘';
+                }
+            }
+            case PAWN: {
+                switch (piece.getColor()) {
+                    case WHITE:
+                        return '♟';
+                    case BLACK:
+                        return '♙';
+                }
+            }
+            case QUEEN: {
+                switch (piece.getColor()) {
+                    case WHITE:
+                        return '♛';
+                    case BLACK:
+                        return '♕';
+                }
+            }
+            case ROOK: {
+                switch (piece.getColor()) {
+                    case WHITE:
+                        return '♜';
+                    case BLACK:
+                        return '♖';
+                }
+            }
+        }
+
+        return '!';
     }
 }

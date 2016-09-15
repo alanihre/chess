@@ -16,6 +16,7 @@ import static org.mockito.Mockito.verify;
 
 public class PieceTest {
 
+    private static PieceType PIECE_TYPE = PieceType.PAWN;
     private static Piece.PieceColor PIECE_COLOR = Piece.PieceColor.BLACK;
     private static int PIECE_START_POSITION_X = 2;
     private static int PIECE_START_POSITION_Y = 2;
@@ -25,15 +26,10 @@ public class PieceTest {
 
     @Before
     public void setUp() {
-        piece = new Piece(new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y), PIECE_COLOR) {
+        piece = new Piece(PieceType.PAWN, new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y), PIECE_COLOR) {
             @Override
             public boolean canMoveTo(Point newPosition) {
                 return false;
-            }
-
-            @Override
-            public char getSymbol() {
-                return 0;
             }
 
             @Override
@@ -45,6 +41,7 @@ public class PieceTest {
 
     @Test
     public void testConstructor() {
+        assertEquals(piece.getType(), PIECE_TYPE);
         assertEquals(piece.getColor(), PIECE_COLOR);
         assertEquals(piece.getPosition(), new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y));
     }

@@ -10,20 +10,24 @@ public abstract class Piece {
     private Point position;
     private PieceColor color;
     private int numberOfMoves = 0;
+    private final PieceType type;
 
-    Piece(Point position, PieceColor color) {
+    Piece(PieceType type, Point position, PieceColor color) {
+        this.type = type;
         this.position = position;
         this.color = color;
     }
 
     public abstract boolean canMoveTo(Point newPosition);
 
-    public abstract char getSymbol();
-
     public abstract String getPieceName();
 
     public PieceColor getColor() {
         return color;
+    }
+
+    public PieceType getType() {
+        return type;
     }
 
     public Point getPosition() {

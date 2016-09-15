@@ -5,7 +5,7 @@ import com.alanihre.chess.Point;
 public class King extends Piece {
 
     public King(Point position, PieceColor color) {
-        super(position, color);
+        super(PieceType.KING, position, color);
     }
 
     public String getPieceName() {
