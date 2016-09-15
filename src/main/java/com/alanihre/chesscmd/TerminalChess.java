@@ -39,8 +39,7 @@ public class TerminalChess implements GameDelegate {
 
         try {
             game.movePiece(sourcePosition, targetPosition);
-        }
-        catch (InvalidMoveException exception) {
+        } catch (InvalidMoveException exception) {
             System.out.println(exception.getMessage());
             System.out.println("Please try again.");
             requestMove(color);

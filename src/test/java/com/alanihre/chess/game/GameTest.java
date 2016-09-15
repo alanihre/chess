@@ -8,19 +8,17 @@ import com.alanihre.chess.piece.Piece;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class GameTest {
-
-    private Game game;
-    private Piece piece;
 
     private static int BOARD_SIZE_WIDTH = 8;
     private static int BOARD_SIZE_HEIGHT = 9;
     private static Piece.PieceColor PIECE_COLOR = Piece.PieceColor.BLACK;
     private static int PIECE_START_POSITION_X = 2;
     private static int PIECE_START_POSITION_Y = 2;
+    private Game game;
+    private Piece piece;
 
     @Before
     public void setUp() {

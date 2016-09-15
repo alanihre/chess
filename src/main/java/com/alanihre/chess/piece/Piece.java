@@ -7,10 +7,10 @@ import java.util.List;
 
 public abstract class Piece {
 
+    private final PieceType type;
     private Point position;
     private PieceColor color;
     private int numberOfMoves = 0;
-    private final PieceType type;
 
     Piece(PieceType type, Point position, PieceColor color) {
         this.type = type;
