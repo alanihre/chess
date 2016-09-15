@@ -12,14 +12,6 @@ public class Bishop extends Piece {
         return "bishop";
     }
 
-    public char getSymbol() {
-        if (getColor() == PieceColor.WHITE) {
-            return '♝';
-        } else {
-            return '♗';
-        }
-    }
-
     public boolean canMoveTo(Point newPosition) {
         //Bishops can only move diagonally which means that the absolute value of the delta
         //of movement in X and Y should be the same.

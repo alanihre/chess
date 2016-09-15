@@ -12,14 +12,6 @@ public class King extends Piece {
         return "king";
     }
 
-    public char getSymbol() {
-        if (getColor() == PieceColor.WHITE) {
-            return '♚';
-        } else {
-            return '♔';
-        }
-    }
-
     public boolean canMoveTo(Point newPosition) {
         //The king can move one step in all directions.
 

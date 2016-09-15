@@ -12,14 +12,6 @@ public class Pawn extends Piece {
         return "pawn";
     }
 
-    public char getSymbol() {
-        if (getColor() == PieceColor.WHITE) {
-            return '♟';
-        } else {
-            return '♙';
-        }
-    }
-
     public boolean canMoveTo(Point newPosition) {
         //TODO: Implement respawn of pawn as other piece on position 8
         //Pawns can move one step forward. On it's first move it can move 2 steps.

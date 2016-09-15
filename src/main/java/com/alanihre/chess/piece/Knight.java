@@ -15,14 +15,6 @@ public class Knight extends Piece {
         return "knight";
     }
 
-    public char getSymbol() {
-        if (getColor() == PieceColor.WHITE) {
-            return '♞';
-        } else {
-            return '♘';
-        }
-    }
-
     @Override
     public boolean canLeap() {
         return true;
