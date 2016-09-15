@@ -10,7 +10,7 @@ public abstract class Game {
     private Board board;
     private Piece.PieceColor currentMovingPieceColor;
 
-    public Game(GameDelegate delegate) {
+    Game(GameDelegate delegate) {
         this.delegate = delegate;
 
         this.board = initializeBoard();
