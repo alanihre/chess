@@ -59,7 +59,7 @@ public class TerminalChess implements GameDelegate {
         printBoard();
     }
 
-    public void printBoard() {
+    private void printBoard() {
         System.out.print(' ');
 
         Board board = game.getBoard();
