@@ -46,11 +46,11 @@ public abstract class Game {
     }
 
     public void movePiece(String oldPosition, String newPosition) {
-        Point oldPositionPoint = getBoard().readableCoordinateToPoint(oldPosition);
-        Point newPositionPoint = getBoard().readableCoordinateToPoint(newPosition);
+        Point oldPositionPoint = getBoard().labeledPointToBoardPoint(oldPosition);
+        Point newPositionPoint = getBoard().labeledPointToBoardPoint(newPosition);
 
         //Check if any movement was made at all
-        if (Point.equalPoints(oldPositionPoint, newPositionPoint)) {
+        if (oldPositionPoint.equals(newPositionPoint)) {
             //TODO: Throw error
             System.out.println("Old and new position are equal");
             return;
@@ -78,12 +78,11 @@ public abstract class Game {
         piece.moveTo(newPositionPoint);
         getBoard().addPiece(piece);
 
-        String readableCoordinate = getBoard().boardPointToReadableCoordinate(piece.getPosition());
+        String readableCoordinate = getBoard().boardPointToLabeledPoint(piece.getPosition());
         getIoInterface().pieceMoved(piece, readableCoordinate);
 
         prepareForNextMove();
         getIoInterface().requestMove(getCurrentMovingPieceColor());
-
     }
 
     abstract void prepareForNextMove();
@@ -114,7 +113,7 @@ public abstract class Game {
 
     protected void capturePiece(Piece piece) {
         getBoard().removePiece(piece);
-        String readableCoordinate = getBoard().boardPointToReadableCoordinate(piece.getPosition());
+        String readableCoordinate = getBoard().boardPointToLabeledPoint(piece.getPosition());
         getIoInterface().pieceCaptured(piece, readableCoordinate);
     }
 }
