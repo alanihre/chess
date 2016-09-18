@@ -21,36 +21,50 @@ public class PawnTest {
     }
 
     @Test
-    public void testMovementConstraints() {
-        //Test that the pawn can move one step forward
-
-        //Simulate that this is not the firsts move of the pawn
-        pawn.increaseNumberOfMoves();
-
-        Point newPosition1 = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 1);
-        assertTrue("Forwards movement with one step", pawn.canMoveTo(newPosition1));
-
-        Point newPosition2 = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 2);
-        assertFalse("Forwards movement with two steps not allowed", pawn.canMoveTo(newPosition2));
-
-        Point newPosition3 = new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y);
-        assertFalse("Sideways movement not allowed", pawn.canMoveTo(newPosition3));
-
-        Point newPosition6 = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y - 1);
-        assertFalse("Backwards movement not allowed", pawn.canMoveTo(newPosition6));
+    public void testLegalFirstMoveOneStepForward() {
+        Point newPosition = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 1);
+        assertTrue(pawn.canMoveTo(newPosition));
     }
 
     @Test
-    public void testFirstMove() {
-        //Test that the pawn can move one or two steps forward on it's first move
+    public void testLegalFirstMoveTwoSteps() {
+        Point newPosition = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 2);
+        assertTrue(pawn.canMoveTo(newPosition));
+    }
 
-        Point newPosition1 = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 1);
-        assertTrue("Forwards movement with one step", pawn.canMoveTo(newPosition1));
+    @Test
+    public void testLegalSecondMoveForwards() {
+        //Simulate that this is not the firsts move of the pawn
+        pawn.increaseNumberOfMoves();
 
-        Point newPosition2 = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 2);
-        assertTrue("Forwards movement with two steps", pawn.canMoveTo(newPosition2));
+        Point newPosition = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 1);
+        assertTrue(pawn.canMoveTo(newPosition));
+    }
 
-        Point newPosition3 = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 3);
-        assertFalse("Forwards movement with more than two steps is not allowed", pawn.canMoveTo(newPosition3));
+    @Test
+    public void testIllegalSecondMoveTwoStepsForward() {
+        //Simulate that this is not the firsts move of the pawn
+        pawn.increaseNumberOfMoves();
+
+        Point newPosition = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 2);
+        assertFalse(pawn.canMoveTo(newPosition));
+    }
+
+    @Test
+    public void testIllegalMoveSideways() {
+        Point newPosition = new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y);
+        assertFalse(pawn.canMoveTo(newPosition));
+    }
+
+    @Test
+    public void testIllegalMoveBackwards() {
+        Point newPosition = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y - 1);
+        assertFalse(pawn.canMoveTo(newPosition));
+    }
+
+    @Test
+    public void testIllegalFirstMoveThreeStepsForward() {
+        Point newPosition = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 3);
+        assertFalse(pawn.canMoveTo(newPosition));
     }
 }

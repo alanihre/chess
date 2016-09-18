@@ -25,8 +25,12 @@ public class PointTest {
     @Test
     public void testEqualPoints() {
         Point point2 = new Point(1, 2);
-        Point point3 = new Point(1, 3);
         assertTrue(point.equals(point2));
+    }
+
+    @Test
+    public void testNotEqualPoints() {
+        Point point3 = new Point(1, 3);
         assertFalse(point.equals(point3));
     }
 

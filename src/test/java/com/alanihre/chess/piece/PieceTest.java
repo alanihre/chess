@@ -40,15 +40,27 @@ public class PieceTest {
     }
 
     @Test
-    public void testConstructor() {
+    public void testConstructorSetsType() {
         assertEquals(piece.getType(), PIECE_TYPE);
+    }
+
+    @Test
+    public void testConstructorSetsColor() {
         assertEquals(piece.getColor(), PIECE_COLOR);
+    }
+
+    @Test
+    public void testConstructorSetsPosition() {
         assertEquals(piece.getPosition(), new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y));
     }
 
     @Test
-    public void testIncreaseNumberOfMoves() {
+    public void testNumberOfMovesIsInitiallyZero() {
         assertEquals(piece.getNumberOfMoves(), 0);
+    }
+
+    @Test
+    public void testIncreaseNumberOfMoves() {
         piece.increaseNumberOfMoves();
         assertEquals(piece.getNumberOfMoves(), 1);
     }
@@ -58,32 +70,49 @@ public class PieceTest {
         Point newPosition = new Point(5, 6);
         piece.moveTo(newPosition);
         assertEquals(piece.getPosition(), newPosition);
+    }
+
+    @Test
+    public void testMovingPieceIncreasesNumberOfMoves() {
+        Point newPosition = new Point(5, 6);
+        piece.moveTo(newPosition);
         assertEquals(piece.getNumberOfMoves(), 1);
     }
 
     @Test
-    public void testGetMovementPathToPosition() {
+    public void testGetSupportedForwardMovement() {
         piece = spy(piece);
 
-        //Single direction movement
         Point point = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 3);
         piece.getMovementPathToPosition(point);
         verify(piece).calculateSingleDirectionMovementPath(point);
+    }
 
-        //Single direction movement
-        Point point2 = new Point(PIECE_START_POSITION_X + 3, PIECE_START_POSITION_Y);
-        piece.getMovementPathToPosition(point2);
-        verify(piece).calculateSingleDirectionMovementPath(point2);
+    @Test
+    public void testGetSupportedSidewaysMovement() {
+        piece = spy(piece);
 
-        //Diagonal movement
-        Point point3 = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y + 2);
-        piece.getMovementPathToPosition(point3);
-        verify(piece).calculateDiagonalMovementPath(point3);
+        Point point = new Point(PIECE_START_POSITION_X + 3, PIECE_START_POSITION_Y);
+        piece.getMovementPathToPosition(point);
+        verify(piece).calculateSingleDirectionMovementPath(point);
+    }
 
-        //Not supported movement
-        Point point4 = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y + 1);
+    @Test
+    public void testGetSupportedDiagonalMovementPath() {
+        piece = spy(piece);
+
+        Point point = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y + 2);
+        piece.getMovementPathToPosition(point);
+        verify(piece).calculateDiagonalMovementPath(point);
+    }
+
+    @Test
+    public void testGetUnsupportedMovementPathThrowsException() {
+        piece = spy(piece);
+
+        Point point = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y + 1);
         thrown.expect(PieceMovementNotSupportedException.class);
-        piece.getMovementPathToPosition(point4);
+        piece.getMovementPathToPosition(point);
     }
 
     @Test

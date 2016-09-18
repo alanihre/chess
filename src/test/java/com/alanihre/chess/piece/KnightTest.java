@@ -20,33 +20,54 @@ public class KnightTest {
     }
 
     @Test
-    public void testMovementConstraints() {
-        //Test that the knight can move two steps forward and one step aside, in any direction.
-
-        Point newPosition1 = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y + 1);
-        assertTrue("Two steps right, one step forward", knight.canMoveTo(newPosition1));
-
-        Point newPosition2 = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y - 1);
-        assertTrue("Two steps right, one step backward", knight.canMoveTo(newPosition2));
-
-        Point newPosition3 = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y + 1);
-        assertTrue("Two steps left, one step forward", knight.canMoveTo(newPosition3));
-
-        Point newPosition4 = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y - 1);
-        assertTrue("Two steps left, one step backward", knight.canMoveTo(newPosition4));
-
-        Point newPosition5 = new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y + 2);
-        assertTrue("Two steps forward, one step right", knight.canMoveTo(newPosition5));
-
-        Point newPosition6 = new Point(PIECE_START_POSITION_X - 1, PIECE_START_POSITION_Y + 2);
-        assertTrue("Two steps forward, one step left", knight.canMoveTo(newPosition6));
-
-        Point newPosition7 = new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y - 2);
-        assertTrue("Two steps backward, one step right", knight.canMoveTo(newPosition7));
-
-        Point newPosition8 = new Point(PIECE_START_POSITION_X - 1, PIECE_START_POSITION_Y - 2);
-        assertTrue("Two steps backward, one step left", knight.canMoveTo(newPosition8));
+    public void testLegalMoveRightForward() {
+        Point newPosition = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y + 1);
+        assertTrue(knight.canMoveTo(newPosition));
     }
+
+    @Test
+    public void testLegalMoveRightBackward() {
+        Point newPosition = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y - 1);
+        assertTrue(knight.canMoveTo(newPosition));
+    }
+
+    @Test
+    public void testLegalMoveLeftForward() {
+        Point newPosition = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y + 1);
+        assertTrue(knight.canMoveTo(newPosition));
+    }
+
+    @Test
+    public void testLegalMoveLeftBackward() {
+        Point newPosition = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y - 1);
+        assertTrue(knight.canMoveTo(newPosition));
+    }
+
+    @Test
+    public void testLegalMoveForwardRight() {
+        Point newPosition = new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y + 2);
+        assertTrue(knight.canMoveTo(newPosition));
+    }
+
+    @Test
+    public void testLegalMoveForwardLeft() {
+        Point newPosition = new Point(PIECE_START_POSITION_X - 1, PIECE_START_POSITION_Y + 2);
+        assertTrue(knight.canMoveTo(newPosition));
+    }
+
+    @Test
+    public void testLegalMoveBackwardRight() {
+        Point newPosition = new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y - 2);
+        assertTrue(knight.canMoveTo(newPosition));
+    }
+
+    @Test
+    public void testLegalMoveBackwardLeft() {
+        Point newPosition = new Point(PIECE_START_POSITION_X - 1, PIECE_START_POSITION_Y - 2);
+        assertTrue(knight.canMoveTo(newPosition));
+    }
+
+    //TODO: Test illegal moves
 
     @Test
     public void testCanLeap() {

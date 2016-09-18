@@ -21,31 +21,50 @@ public class KingTest {
     }
 
     @Test
-    public void testMovementConstraints() {
-        //Test that the king can move only one step in any direction
+    public void testLegalMoveForwards() {
+        Point newPosition = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 1);
+        assertTrue(king.canMoveTo(newPosition));
+    }
 
-        Point newPosition1 = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 1);
-        assertTrue("Forwards movement with one step", king.canMoveTo(newPosition1));
+    @Test
+    public void testIllegalMoveForwards() {
+        Point newPosition = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 2);
+        assertFalse(king.canMoveTo(newPosition));
+    }
 
-        Point newPosition2 = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 2);
-        assertFalse("Forwards movement with two steps (not allowed)", king.canMoveTo(newPosition2));
+    @Test
+    public void testLegalMoveRight() {
+        Point newPosition = new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y);
+        assertTrue(king.canMoveTo(newPosition));
+    }
 
-        Point newPosition3 = new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y);
-        assertTrue("Sideways right movement with one step", king.canMoveTo(newPosition3));
+    @Test
+    public void testIllegalMoveRight() {
+        Point newPosition = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y);
+        assertFalse(king.canMoveTo(newPosition));
+    }
 
-        Point newPosition4 = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y);
-        assertFalse("Sideways right movement with two steps (not allowed)", king.canMoveTo(newPosition4));
+    @Test
+    public void testLegalMoveBackwards() {
+        Point newPosition = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y - 1);
+        assertTrue(king.canMoveTo(newPosition));
+    }
 
-        Point newPosition5 = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y - 1);
-        assertTrue("Backwards movement with one step", king.canMoveTo(newPosition5));
+    @Test
+    public void testIllegalMoveBackwards() {
+        Point newPosition = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y - 2);
+        assertFalse(king.canMoveTo(newPosition));
+    }
 
-        Point newPosition6 = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y - 2);
-        assertFalse("Backwards movement with two steps (not allowed)", king.canMoveTo(newPosition6));
+    @Test
+    public void testLegalMoveLeft() {
+        Point newPosition = new Point(PIECE_START_POSITION_X - 1, PIECE_START_POSITION_Y);
+        assertTrue(king.canMoveTo(newPosition));
+    }
 
-        Point newPosition7 = new Point(PIECE_START_POSITION_X - 1, PIECE_START_POSITION_Y);
-        assertTrue("Left movement with one step", king.canMoveTo(newPosition7));
-
-        Point newPosition8 = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y);
-        assertFalse("Left movement with two steps (not allowed)", king.canMoveTo(newPosition8));
+    @Test
+    public void testIllegalMoveLeft() {
+        Point newPosition = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y);
+        assertFalse(king.canMoveTo(newPosition));
     }
 }

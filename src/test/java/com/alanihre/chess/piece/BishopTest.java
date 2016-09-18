@@ -21,22 +21,32 @@ public class BishopTest {
     }
 
     @Test
-    public void testMovementConstraints() {
-        //Test that the bishop can move diagonally
+    public void testLegalMoveSouthEastDiagonal() {
+        Point newPosition = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y + 2);
+        assertTrue(bishop.canMoveTo(newPosition));
+    }
 
-        Point newPosition1 = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y + 2);
-        assertTrue("South-east diagonal movement with two steps", bishop.canMoveTo(newPosition1));
+    @Test
+    public void testLegalMoveSouthWestDiagonal() {
+        Point newPosition = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y + 2);
+        assertTrue(bishop.canMoveTo(newPosition));
+    }
 
-        Point newPosition2 = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y + 2);
-        assertTrue("South-west diagonal movement with two steps", bishop.canMoveTo(newPosition2));
+    @Test
+    public void testLegalMoveNorthEastDiagonal() {
+        Point newPosition = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y - 2);
+        assertTrue(bishop.canMoveTo(newPosition));
+    }
 
-        Point newPosition3 = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y - 2);
-        assertTrue("North-east diagonal movement with two steps", bishop.canMoveTo(newPosition3));
+    @Test
+    public void testLegalMoveNorthWestDiagonal() {
+        Point newPosition = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y - 2);
+        assertTrue(bishop.canMoveTo(newPosition));
+    }
 
-        Point newPosition4 = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y - 2);
-        assertTrue("North-west movement with two steps", bishop.canMoveTo(newPosition4));
-
-        Point newPosition5 = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y);
-        assertFalse("Non-diagonal movement not allowed", bishop.canMoveTo(newPosition5));
+    @Test
+    public void testIllegalMoveNonDiagonal() {
+        Point newPosition = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y);
+        assertFalse(bishop.canMoveTo(newPosition));
     }
 }
