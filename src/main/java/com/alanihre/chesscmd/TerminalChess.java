@@ -6,6 +6,7 @@ import com.alanihre.chess.game.Game;
 import com.alanihre.chess.game.GameDelegate;
 import com.alanihre.chess.game.InvalidMoveException;
 import com.alanihre.chess.piece.Piece;
+import com.alanihre.chess.piece.PieceType;
 
 import java.util.Scanner;
 
@@ -59,7 +60,13 @@ public class TerminalChess implements GameDelegate {
         printBoard();
     }
 
-    private void printBoard() {
+    public PieceType requestNewPieceOfType(PieceType[] availablePieces, String message) {
+        System.out.println(message);
+        String pieceTypeString = scanner.next();
+        return PieceType.valueOf(pieceTypeString.toUpperCase());
+    }
+
+    public void printBoard() {
         System.out.print(' ');
 
         Board board = game.getBoard();

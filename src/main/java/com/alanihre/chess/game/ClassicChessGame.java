@@ -3,7 +3,10 @@ package com.alanihre.chess.game;
 import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
 import com.alanihre.chess.board.ClassicBoard;
+import com.alanihre.chess.piece.King;
+import com.alanihre.chess.piece.Pawn;
 import com.alanihre.chess.piece.Piece;
+import com.alanihre.chess.piece.PieceType;
 
 import java.util.List;
 
@@ -42,6 +45,28 @@ public class ClassicChessGame extends Game {
         }
 
         return true;
+    }
+
+    protected void pieceMoved(Piece piece, Point oldPosition) {
+        checkPromotion(piece);
+    }
+
+    private void checkPromotion(Piece piece) {
+        if (piece.getClass() == Pawn.class) {
+            Point piecePosition = piece.getPosition();
+            int piecePositionY = piecePosition.getY();
+            if (piecePositionY == 0 || piecePositionY == getBoard().getWidth() - 1) {
+                PieceType[] pieceTypes = new PieceType[]{PieceType.BISHOP, PieceType.KNIGHT, PieceType.QUEEN, PieceType.ROOK};
+                PieceType pieceType = getDelegate().requestNewPieceOfType(pieceTypes, "Promotion. Please pick another piece to replace the pawn.");
+                Piece.PieceColor pieceColor = getCurrentMovingPieceColor();
+                Piece newPiece = PieceType.pieceFromType(pieceType, piecePosition, pieceColor);
+                if (newPiece instanceof Pawn || newPiece instanceof King) {
+                    throw new GamePlayException("Invalid piece type");
+                } else {
+                    getBoard().putPiece(newPiece);
+                }
+            }
+        }
     }
 
     public void prepareForNextMove() {

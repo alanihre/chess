@@ -63,7 +63,7 @@ public class BoardTest {
         Point position = new Point(0, 0);
         Piece piece = new Pawn(position, Piece.PieceColor.BLACK);
 
-        board.addPiece(piece);
+        board.putPiece(piece);
         assertSame(board.getPieceAtPosition(position), piece);
     }
 
@@ -72,7 +72,7 @@ public class BoardTest {
         Point position = new Point(0, 0);
         Piece piece = new Pawn(position, Piece.PieceColor.BLACK);
 
-        board.addPiece(piece);
+        board.putPiece(piece);
         board.removePiece(piece);
         assertNull(board.getPieceAtPosition(position));
     }

@@ -57,7 +57,7 @@ public abstract class Board {
         return verticalLabels;
     }
 
-    public void addPiece(Piece piece) {
+    public void putPiece(Piece piece) {
         int xPosition = piece.getPosition().getX();
         int yPosition = piece.getPosition().getY();
         squares[xPosition][yPosition] = piece;

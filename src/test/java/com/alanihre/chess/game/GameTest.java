@@ -29,7 +29,7 @@ public class GameTest {
                     @Override
                     public void setupBoard() {
                         piece = new Pawn(new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y), PIECE_COLOR);
-                        this.addPiece(piece);
+                        this.putPiece(piece);
                     }
                 };
                 board.setupBoard();
@@ -38,6 +38,11 @@ public class GameTest {
 
             @Override
             void prepareForNextMove() {
+
+            }
+
+            @Override
+            void pieceMoved(Piece piece, Point oldPosition) {
 
             }
 
