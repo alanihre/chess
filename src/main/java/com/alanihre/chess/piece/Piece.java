@@ -34,7 +34,7 @@ public abstract class Piece {
         return position;
     }
 
-    int getNumberOfMoves() {
+    public int getNumberOfMoves() {
         return numberOfMoves;
     }
 

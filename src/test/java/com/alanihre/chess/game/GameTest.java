@@ -71,6 +71,11 @@ public class GameTest {
             }
 
             @Override
+            void willMovePiece(Piece piece, Point newPosition) {
+
+            }
+
+            @Override
             boolean pieceCanCapturePiece(Piece capturingPiece, Piece targetPiece) {
                 return false;
             }

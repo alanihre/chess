@@ -79,6 +79,8 @@ public abstract class Game {
             capturePiece(targetPositionPiece);
         }
 
+        willMovePiece(piece, newPosition);
+
         getBoard().removePiece(piece);
         piece.moveTo(newPosition);
         getBoard().putPiece(piece);
@@ -92,6 +94,7 @@ public abstract class Game {
         getDelegate().requestMove(getCurrentMovingPieceColor());
     }
 
+    abstract void willMovePiece(Piece piece, Point newPosition);
     abstract void pieceMoved(Piece piece, Point oldPosition);
 
     abstract void prepareForNextMove();

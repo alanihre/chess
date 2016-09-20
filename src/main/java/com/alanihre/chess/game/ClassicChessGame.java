@@ -12,6 +12,9 @@ import java.util.List;
 
 public class ClassicChessGame extends Game {
 
+    private Piece lastMovedPiece;
+    private boolean isPassantMove;
+
     public ClassicChessGame(GameDelegate delegate) {
         super(delegate);
     }
@@ -26,9 +29,9 @@ public class ClassicChessGame extends Game {
     protected boolean canMovePiece(Piece piece, Point newPosition) {
         if (!piece.canMoveTo(newPosition)) {
             if (piece instanceof Pawn) {
-                Pawn pawn = (Pawn)piece;
                 Piece pieceAtPosition = getBoard().getPieceAtPosition(newPosition);
-                if (pieceAtPosition == null || !pieceCanCapturePiece(piece, pieceAtPosition)) {
+                if (!checkPassant(piece, newPosition)
+                        && (pieceAtPosition == null || !pieceCanCapturePiece(piece, pieceAtPosition))) {
                     throw new InvalidMoveException("This piece is not allowed to move to the entered position");
                 }
             } else {
@@ -55,6 +58,11 @@ public class ClassicChessGame extends Game {
     }
 
     protected void pieceMoved(Piece piece, Point oldPosition) {
+        if (isPassantMove) {
+            isPassantMove = false;
+            capturePiece(lastMovedPiece);
+        }
+        lastMovedPiece = piece;
         checkPromotion(piece);
     }
 
@@ -74,6 +82,25 @@ public class ClassicChessGame extends Game {
                 }
             }
         }
+    }
+
+    private boolean checkPassant(Piece piece, Point newPosition) {
+        Pawn pawn;
+        if (piece instanceof Pawn && lastMovedPiece != null && lastMovedPiece instanceof Pawn) {
+            pawn = (Pawn)piece;
+        } else {
+            return false;
+        }
+        int piecePositionX = piece.getPosition().getX();
+        int lastMovedPiecePositionX = lastMovedPiece.getPosition().getX();
+
+        return lastMovedPiece.getNumberOfMoves() == 1
+                && (lastMovedPiecePositionX == piecePositionX + 1 || lastMovedPiecePositionX == piecePositionX - 1)
+                && pawn.canMakeCapturingMove(newPosition);
+    }
+
+    protected void willMovePiece(Piece piece, Point newPosition) {
+        isPassantMove = checkPassant(piece, newPosition);
     }
 
     public void prepareForNextMove() {
