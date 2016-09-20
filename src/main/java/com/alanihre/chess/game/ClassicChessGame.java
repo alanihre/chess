@@ -24,8 +24,16 @@ public class ClassicChessGame extends Game {
 
     @Override
     protected boolean canMovePiece(Piece piece, Point newPosition) {
-        if (!super.canMovePiece(piece, newPosition)) {
-            return false;
+        if (!piece.canMoveTo(newPosition)) {
+            if (piece instanceof Pawn) {
+                Pawn pawn = (Pawn)piece;
+                Piece pieceAtPosition = getBoard().getPieceAtPosition(newPosition);
+                if (pieceAtPosition == null || !pieceCanCapturePiece(piece, pieceAtPosition)) {
+                    throw new InvalidMoveException("This piece is not allowed to move to the entered position");
+                }
+            } else {
+                throw new InvalidMoveException("This piece is not allowed to move to the entered position");
+            }
         }
 
         if (!piece.canLeap()) {
@@ -35,11 +43,10 @@ public class ClassicChessGame extends Game {
             for (int i = 0; i < numberOfMoves; i++) {
                 Point point = movementPath.get(i);
                 Piece pieceAtPosition = getBoard().getPieceAtPosition(point);
-                if (pieceAtPosition != null) {
-                    //If this is the last move in the path; check if the piece there can be captured
-                    if (i != numberOfMoves - 1 || pieceAtPosition.getColor() == piece.getColor()) {
+                //If this is the last move in the path; check if the piece there can be captured
+                if (pieceAtPosition != null
+                        && (i != numberOfMoves - 1 || !pieceCanCapturePiece(piece, pieceAtPosition))) {
                         throw new InvalidMoveException("There are other pieces blocking the movement");
-                    }
                 }
             }
         }
@@ -78,6 +85,12 @@ public class ClassicChessGame extends Game {
     }
 
     protected boolean pieceCanCapturePiece(Piece capturingPiece, Piece targetPiece) {
+        if (capturingPiece instanceof Pawn) {
+            Pawn pawn = (Pawn)capturingPiece;
+            if (!pawn.canMakeCapturingMove(targetPiece.getPosition())) {
+                return false;
+            }
+        }
         return targetPiece.getColor() != capturingPiece.getColor();
     }
 }

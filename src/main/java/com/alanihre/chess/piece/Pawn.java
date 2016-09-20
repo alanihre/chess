@@ -30,4 +30,15 @@ public class Pawn extends Piece {
                 && ((pieceColor == Piece.PieceColor.WHITE && positionYDelta < 0 && Math.abs(positionYDelta) <= movableSteps)
                 || (pieceColor == Piece.PieceColor.BLACK && positionYDelta > 0 && positionYDelta <= movableSteps));
     }
+
+    public boolean canMakeCapturingMove(Point newPosition) {
+        Piece.PieceColor pieceColor = getColor();
+        Point piecePosition = getPosition();
+        int positionXDelta = newPosition.getX() - piecePosition.getX();
+        int positionYDelta = newPosition.getY() - piecePosition.getY();
+
+        return Math.abs(positionXDelta) == Math.abs(positionYDelta)
+                && ((pieceColor == Piece.PieceColor.WHITE && positionYDelta == -1)
+                || (pieceColor == Piece.PieceColor.BLACK && positionYDelta == 1));
+    }
 }
