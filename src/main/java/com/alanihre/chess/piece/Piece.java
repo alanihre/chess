@@ -55,8 +55,8 @@ public abstract class Piece {
     //For other movement patterns please override.
     public List<Point> getMovementPathToPosition(Point newPosition) {
         Point piecePosition = getPosition();
-        int positionXDelta = newPosition.getX() - piecePosition.getX();
-        int positionYDelta = newPosition.getY() - piecePosition.getY();
+        int positionXDelta = Math.abs(newPosition.getX() - piecePosition.getX());
+        int positionYDelta = Math.abs(newPosition.getY() - piecePosition.getY());
 
         if (positionXDelta == positionYDelta) {
             return calculateDiagonalMovementPath(newPosition);
@@ -103,13 +103,15 @@ public abstract class Piece {
         Point piecePosition = getPosition();
         int piecePositionX = piecePosition.getX();
         int piecePositionY = piecePosition.getY();
-        //Since movement is diagonal, delta is the same for X and Y.
-        int positionDelta = newPosition.getX() - piecePosition.getX();
-        int deltaSign = Integer.signum(positionDelta);
+        int positionXDelta = newPosition.getX() - piecePosition.getX();
+        int positionYDelta = newPosition.getY() - piecePosition.getY();
+        int deltaSignX = Integer.signum(positionXDelta);
+        int deltaSignY = Integer.signum(positionYDelta);
 
-        for (int i = 0; i < Math.abs(positionDelta); i++) {
-            int newPiecePositionX = piecePositionX + deltaSign * (i + 1);
-            int newPiecePositionY = piecePositionY + deltaSign * (i + 1);
+        //Since movement is diagonal, delta is the same size for X and Y.
+        for (int i = 0; i < Math.abs(positionXDelta); i++) {
+            int newPiecePositionX = piecePositionX + deltaSignX * (i + 1);
+            int newPiecePositionY = piecePositionY + deltaSignY * (i + 1);
             Point point = new Point(newPiecePositionX, newPiecePositionY);
             movementPath.add(point);
         }

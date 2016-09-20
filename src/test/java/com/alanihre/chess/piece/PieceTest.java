@@ -156,7 +156,7 @@ public class PieceTest {
     }
 
     @Test
-    public void testCalculatePositiveDiagonalMovementMovementPath() {
+    public void testCalculatePositiveDiagonalMovementPath() {
         Point point = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y + 2);
         List<Point> movementPath = piece.getMovementPathToPosition(point);
         List<Point> expectedMovementPath = new ArrayList<Point>();
@@ -166,12 +166,22 @@ public class PieceTest {
     }
 
     @Test
-    public void testCalculateNegativeDiagonalMovementMovementPath() {
+    public void testCalculateNegativeDiagonalMovementPath() {
         Point point = new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y - 2);
         List<Point> movementPath = piece.getMovementPathToPosition(point);
         List<Point> expectedMovementPath = new ArrayList<Point>();
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X - 1, PIECE_START_POSITION_Y - 1));
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y - 2));
+        assertEquals(movementPath, expectedMovementPath);
+    }
+
+    @Test
+    public void testCalculateNorthEastDiagonalMovementPath() {
+        Point point = new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y - 2);
+        List<Point> movementPath = piece.getMovementPathToPosition(point);
+        List<Point> expectedMovementPath = new ArrayList<Point>();
+        expectedMovementPath.add(new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y - 1));
+        expectedMovementPath.add(new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y - 2));
         assertEquals(movementPath, expectedMovementPath);
     }
 }
