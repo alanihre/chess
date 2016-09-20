@@ -88,7 +88,7 @@ public abstract class Game {
     abstract void prepareForNextMove();
 
     protected boolean canMovePiece(Piece piece, Point newPosition) {
-        if (getBoard().positionWithinBoardBounds(newPosition)) {
+        if (!getBoard().positionWithinBoardBounds(newPosition)) {
             throw new InvalidMoveException("New position is outside board bounds");
         }
 

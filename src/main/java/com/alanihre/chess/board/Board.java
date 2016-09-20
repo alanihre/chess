@@ -75,9 +75,9 @@ public abstract class Board {
 
     public boolean positionWithinBoardBounds(Point position) {
         return position.getX() < getWidth()
-                && position.getX() > 0
+                && position.getX() >= 0
                 && position.getY() < getHeight()
-                && position.getY() > 0;
+                && position.getY() >= 0;
     }
 
     public String boardPointToLabeledPoint(Point point) {
