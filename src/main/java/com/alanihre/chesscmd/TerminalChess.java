@@ -4,6 +4,7 @@ import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
 import com.alanihre.chess.game.Game;
 import com.alanihre.chess.game.GameDelegate;
+import com.alanihre.chess.game.GamePlayException;
 import com.alanihre.chess.game.InvalidMoveException;
 import com.alanihre.chess.piece.Piece;
 import com.alanihre.chess.piece.PieceType;
@@ -40,7 +41,7 @@ public class TerminalChess implements GameDelegate {
 
         try {
             game.movePiece(sourcePosition, targetPosition);
-        } catch (InvalidMoveException exception) {
+        } catch (GamePlayException exception) {
             System.out.println(exception.getMessage());
             System.out.println("Please try again.");
             requestMove(color);
