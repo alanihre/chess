@@ -94,6 +94,7 @@ public abstract class Game {
     }
 
     abstract void willMovePiece(Piece piece, Point newPosition);
+
     abstract void pieceMoved(Piece piece, Point oldPosition);
 
     abstract void prepareForNextMove();

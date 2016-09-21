@@ -44,6 +44,7 @@ public class GameTest {
             public PieceType requestNewPieceOfType(PieceType[] availableTypes, String message) {
                 return null;
             }
+
             public void gameEnded(String message) {
 
             }

@@ -118,7 +118,7 @@ public class ClassicChessGame extends Game {
     private boolean checkPassant(Piece piece, Point newPosition) {
         Pawn pawn;
         if (piece instanceof Pawn && lastMovedPiece != null && lastMovedPiece instanceof Pawn) {
-            pawn = (Pawn)piece;
+            pawn = (Pawn) piece;
         } else {
             return false;
         }
@@ -144,7 +144,7 @@ public class ClassicChessGame extends Game {
 
     protected boolean pieceCanCapturePiece(Piece capturingPiece, Piece targetPiece) {
         if (capturingPiece instanceof Pawn) {
-            Pawn pawn = (Pawn)capturingPiece;
+            Pawn pawn = (Pawn) capturingPiece;
             if (!pawn.canMakeCapturingMove(targetPiece.getPosition())) {
                 return false;
             }
@@ -191,7 +191,7 @@ public class ClassicChessGame extends Game {
 
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                if (i == 0 && j == 0){
+                if (i == 0 && j == 0) {
                     continue;
                 }
                 Point point = new Point(kingPosition.getX() + i, kingPosition.getY() + j);

@@ -5,7 +5,6 @@ import com.alanihre.chess.board.Board;
 import com.alanihre.chess.game.Game;
 import com.alanihre.chess.game.GameDelegate;
 import com.alanihre.chess.game.GamePlayException;
-import com.alanihre.chess.game.InvalidMoveException;
 import com.alanihre.chess.piece.Piece;
 import com.alanihre.chess.piece.PieceType;
 

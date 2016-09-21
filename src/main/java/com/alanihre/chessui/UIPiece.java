@@ -1,7 +1,7 @@
 package com.alanihre.chessui;
 
-import com.alanihre.chess.piece.Piece;
 import com.alanihre.chess.Point;
+import com.alanihre.chess.piece.Piece;
 
 import java.awt.*;
 
@@ -47,9 +47,9 @@ public class UIPiece extends JLabel {
         int stringWidth = getFontMetrics(labelFont).stringWidth(labelText);
         int componentWidth = getWidth();
 
-        double widthRatio = (double)componentWidth / (double)stringWidth;
+        double widthRatio = (double) componentWidth / (double) stringWidth;
 
-        int newFontSize = (int)(labelFont.getSize() * widthRatio);
+        int newFontSize = (int) (labelFont.getSize() * widthRatio);
         int componentHeight = getHeight();
 
         int fontSizeToUse = Math.min(newFontSize, componentHeight);

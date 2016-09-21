@@ -1,10 +1,10 @@
 package com.alanihre.chessui;
 
+import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
 import com.alanihre.chess.game.Game;
 import com.alanihre.chess.game.GamePlayException;
 import com.alanihre.chess.piece.Piece;
-import com.alanihre.chess.Point;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -39,7 +39,7 @@ class UIBoard extends JComponent {
 
         Dimension pieceSize = new Dimension(getWidth() / board.getWidth(), getHeight() / board.getHeight());
 
-        for (int i = 0; i < board.getWidth() ; i++) {
+        for (int i = 0; i < board.getWidth(); i++) {
             for (int pieceIndex = 0; pieceIndex < board.getHeight(); pieceIndex++) {
 
                 Point point = new Point(pieceIndex, i);
@@ -55,11 +55,9 @@ class UIBoard extends JComponent {
 
                 add(uiPiece);
 
-                uiPiece.addMouseListener(new MouseAdapter()
-                {
-                    public void mouseClicked(MouseEvent e)
-                    {
-                        UIPiece uiPiece = (UIPiece)e.getComponent();
+                uiPiece.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e) {
+                        UIPiece uiPiece = (UIPiece) e.getComponent();
                         Point point = uiPiece.getPoint();
                         if (sourcePoint == null) {
                             sourcePoint = point;
