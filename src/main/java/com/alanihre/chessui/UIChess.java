@@ -7,15 +7,15 @@ import com.alanihre.chess.piece.PieceType;
 
 class UIChess implements GameDelegate {
 
-    private UIChessApplication application;
+    private UIBoard uiBoard;
 
-    public UIChess(UIChessApplication application) {
-        this.application = application;
+    public UIChess(UIBoard uiBoard) {
+        this.uiBoard = uiBoard;
     }
 
     public void gameReady(Game game) {
-        application.setGame(game);
-        application.drawBoard();
+        uiBoard.setGame(game);
+        uiBoard.drawBoard();
     }
 
     public void requestMove(Piece.PieceColor color) {
@@ -27,7 +27,7 @@ class UIChess implements GameDelegate {
     }
 
     public void pieceMoved(Piece piece, String coordinate) {
-        application.drawBoard();
+        uiBoard.drawBoard();
     }
 
     public PieceType requestNewPieceOfType(PieceType[] availableTypes, String message) {

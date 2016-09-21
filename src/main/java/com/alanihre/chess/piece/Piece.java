@@ -22,6 +22,8 @@ public abstract class Piece {
 
     public abstract String getPieceName();
 
+    public abstract char getSymbol();
+
     public PieceColor getColor() {
         return color;
     }

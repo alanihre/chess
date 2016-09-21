@@ -17,9 +17,9 @@ public class Knight extends Piece {
 
     public char getSymbol() {
         if (getColor() == PieceColor.WHITE) {
-            return '♞';
-        } else {
             return '♘';
+        } else {
+            return '♞';
         }
     }
 

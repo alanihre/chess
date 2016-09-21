@@ -14,9 +14,9 @@ public class King extends Piece {
 
     public char getSymbol() {
         if (getColor() == PieceColor.WHITE) {
-            return '♚';
-        } else {
             return '♔';
+        } else {
+            return '♚';
         }
     }
 

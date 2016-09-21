@@ -4,17 +4,19 @@ import com.alanihre.chess.game.ClassicChessGame;
 import com.alanihre.chess.game.Game;
 import com.alanihre.chess.game.GameDelegate;
 
-import javax.swing.*;
-
 public class Main {
+    
     public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                UIChessApplication application = new UIChessApplication();
-                application.createAndShowGUI();
-                GameDelegate delegate = new UIChess(application);
+                Window window = new Window();
+                window.createAndShowGUI();
+
+                UIBoard uiBoard = new UIBoard();
+                uiBoard.setSize(window.getSize());
+                window.getContentPane().add(uiBoard);
+
+                GameDelegate delegate = new UIChess(uiBoard);
                 Game game = new ClassicChessGame(delegate);
             }
         });

@@ -36,6 +36,11 @@ public class PieceTest {
             public String getPieceName() {
                 return null;
             }
+
+            @Override
+            public char getSymbol() {
+                return ' ';
+            }
         };
     }
 
