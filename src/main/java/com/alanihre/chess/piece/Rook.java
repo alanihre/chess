@@ -12,6 +12,14 @@ public class Rook extends Piece {
         return "rook";
     }
 
+    public char getSymbol() {
+        if (getColor() == PieceColor.WHITE) {
+            return '♜';
+        } else {
+            return '♖';
+        }
+    }
+
     public boolean canMoveTo(Point newPosition) {
         //Rooks can be moved any number of squares up, down, left or right.
 

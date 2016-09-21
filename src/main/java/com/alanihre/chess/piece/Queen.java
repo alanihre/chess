@@ -12,6 +12,14 @@ public class Queen extends Piece {
         return "queen";
     }
 
+    public char getSymbol() {
+        if (getColor() == PieceColor.WHITE) {
+            return '♛';
+        } else {
+            return '♕';
+        }
+    }
+
     public boolean canMoveTo(Point newPosition) {
         //The queen can move like both the rook and the bishop
 
