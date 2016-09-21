@@ -92,7 +92,9 @@ public class ClassicChessGame extends Game {
         isCheckingForCheck = false;
         newPositionForMove = null;
 
-        isCheckMate(getCurrentMovingPieceColor());
+        if (isCheckMate(getCurrentMovingPieceColor())) {
+            getDelegate().gameEnded("Game ended because king is in check mate");
+        }
     }
 
     private void checkPromotion(Piece piece) {

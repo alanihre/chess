@@ -15,6 +15,6 @@ public interface GameDelegate {
 
     PieceType requestNewPieceOfType(PieceType[] availableTypes, String message);
 
-    //void gameEnded(Reason); //TODO: Implement
+    void gameEnded(String message);
 
 }

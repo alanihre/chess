@@ -67,6 +67,10 @@ public class TerminalChess implements GameDelegate {
         return PieceType.valueOf(pieceTypeString.toUpperCase());
     }
 
+    public void gameEnded(String message) {
+        System.out.println(message);
+    }
+
     public void printBoard() {
         System.out.print(' ');
 
