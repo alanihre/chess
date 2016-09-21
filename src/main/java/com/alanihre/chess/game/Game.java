@@ -69,7 +69,6 @@ public abstract class Game {
         }
 
         if (!canMovePiece(piece, newPosition)) {
-            //This exception should never be thrown since canMovePiece() should throw exceptions movement errors.
             throw new InvalidMoveException("The move is not allowed");
         }
 
@@ -101,7 +100,7 @@ public abstract class Game {
 
     protected boolean canMovePiece(Piece piece, Point newPosition) {
         if (!piece.canMoveTo(newPosition)) {
-            throw new InvalidMoveException("This piece is not allowed to move to the entered position");
+            return false;
         }
 
         return true;
