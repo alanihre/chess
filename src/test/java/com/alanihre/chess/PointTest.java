@@ -9,22 +9,25 @@ import static org.junit.Assert.assertTrue;
 
 public class PointTest {
 
+    private static int POINT_X = 1;
+    private static int POINT_Y = 2;
+
     private Point point;
 
     @Before
     public void setUp() {
-        point = new Point(1, 2);
+        point = new Point(POINT_X, POINT_Y);
     }
 
     @Test
     public void testConstructor() {
-        assertEquals(point.getX(), 1);
-        assertEquals(point.getY(), 2);
+        assertEquals(POINT_X, point.getX());
+        assertEquals(POINT_Y, point.getY());
     }
 
     @Test
     public void testEqualPoints() {
-        Point point2 = new Point(1, 2);
+        Point point2 = new Point(POINT_X, POINT_Y);
         assertTrue(point.equals(point2));
     }
 
@@ -37,6 +40,6 @@ public class PointTest {
     @Test
     public void testToString() {
         String pointAsString = point.toString();
-        assertEquals("(1,2)", pointAsString);
+        assertEquals("(" + POINT_X + "," + POINT_Y + ")", pointAsString);
     }
 }

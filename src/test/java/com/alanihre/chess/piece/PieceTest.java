@@ -46,42 +46,43 @@ public class PieceTest {
 
     @Test
     public void testConstructorSetsType() {
-        assertEquals(piece.getType(), PIECE_TYPE);
+        assertEquals(PIECE_TYPE, piece.getType());
     }
 
     @Test
     public void testConstructorSetsColor() {
-        assertEquals(piece.getColor(), PIECE_COLOR);
+        assertEquals(PIECE_COLOR, piece.getColor());
     }
 
     @Test
     public void testConstructorSetsPosition() {
-        assertEquals(piece.getPosition(), new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y));
+        Point expectedPosition = new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y);
+        assertEquals(expectedPosition, piece.getPosition());
     }
 
     @Test
     public void testNumberOfMovesIsInitiallyZero() {
-        assertEquals(piece.getNumberOfMoves(), 0);
+        assertEquals(0, piece.getNumberOfMoves());
     }
 
     @Test
     public void testIncreaseNumberOfMoves() {
         piece.increaseNumberOfMoves();
-        assertEquals(piece.getNumberOfMoves(), 1);
+        assertEquals(1, piece.getNumberOfMoves());
     }
 
     @Test
     public void testMovingPiece() {
         Point newPosition = new Point(5, 6);
         piece.moveTo(newPosition);
-        assertEquals(piece.getPosition(), newPosition);
+        assertEquals(newPosition, piece.getPosition());
     }
 
     @Test
     public void testMovingPieceIncreasesNumberOfMoves() {
         Point newPosition = new Point(5, 6);
         piece.moveTo(newPosition);
-        assertEquals(piece.getNumberOfMoves(), 1);
+        assertEquals(1, piece.getNumberOfMoves());
     }
 
     @Test
@@ -127,7 +128,7 @@ public class PieceTest {
         List<Point> expectedMovementPath = new ArrayList<Point>();
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 1));
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y + 2));
-        assertEquals(movementPath, expectedMovementPath);
+        assertEquals(expectedMovementPath, movementPath);
     }
 
     @Test
@@ -137,7 +138,7 @@ public class PieceTest {
         List<Point> expectedMovementPath = new ArrayList<Point>();
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y - 1));
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X, PIECE_START_POSITION_Y - 2));
-        assertEquals(movementPath, expectedMovementPath);
+        assertEquals(expectedMovementPath, movementPath);
     }
 
     @Test
@@ -147,7 +148,7 @@ public class PieceTest {
         List<Point> expectedMovementPath = new ArrayList<Point>();
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y));
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y));
-        assertEquals(movementPath, expectedMovementPath);
+        assertEquals(expectedMovementPath, movementPath);
     }
 
     @Test
@@ -157,7 +158,7 @@ public class PieceTest {
         List<Point> expectedMovementPath = new ArrayList<Point>();
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X - 1, PIECE_START_POSITION_Y));
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y));
-        assertEquals(movementPath, expectedMovementPath);
+        assertEquals(expectedMovementPath, movementPath);
     }
 
     @Test
@@ -167,7 +168,7 @@ public class PieceTest {
         List<Point> expectedMovementPath = new ArrayList<Point>();
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y + 1));
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y + 2));
-        assertEquals(movementPath, expectedMovementPath);
+        assertEquals(expectedMovementPath, movementPath);
     }
 
     @Test
@@ -177,7 +178,7 @@ public class PieceTest {
         List<Point> expectedMovementPath = new ArrayList<Point>();
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X - 1, PIECE_START_POSITION_Y - 1));
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X - 2, PIECE_START_POSITION_Y - 2));
-        assertEquals(movementPath, expectedMovementPath);
+        assertEquals(expectedMovementPath, movementPath);
     }
 
     @Test
@@ -187,6 +188,6 @@ public class PieceTest {
         List<Point> expectedMovementPath = new ArrayList<Point>();
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X + 1, PIECE_START_POSITION_Y - 1));
         expectedMovementPath.add(new Point(PIECE_START_POSITION_X + 2, PIECE_START_POSITION_Y - 2));
-        assertEquals(movementPath, expectedMovementPath);
+        assertEquals(expectedMovementPath, movementPath);
     }
 }

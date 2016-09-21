@@ -33,8 +33,8 @@ public class BoardTest {
 
     @Test
     public void testConstructor() {
-        assertEquals(board.getWidth(), BOARD_SIZE_WIDTH);
-        assertEquals(board.getHeight(), BOARD_SIZE_HEIGHT);
+        assertEquals(BOARD_SIZE_WIDTH, board.getWidth());
+        assertEquals(BOARD_SIZE_HEIGHT, board.getHeight());
     }
 
     @Test
@@ -64,7 +64,8 @@ public class BoardTest {
         Piece piece = new Pawn(position, Piece.PieceColor.BLACK);
 
         board.putPiece(piece);
-        assertSame(board.getPieceAtPosition(position), piece);
+        Piece actualPieceAtPosition = board.getPieceAtPosition(position);
+        assertSame(piece, actualPieceAtPosition);
     }
 
     @Test
@@ -81,13 +82,15 @@ public class BoardTest {
     public void testBoardPointToLabeledPoint() {
         Point point = new Point(1, 2);
         String expectedLabeledPoint = "b7";
-        assertEquals(board.boardPointToLabeledPoint(point), expectedLabeledPoint);
+        String actualLabeledPoint = board.boardPointToLabeledPoint(point);
+        assertEquals(expectedLabeledPoint, actualLabeledPoint);
     }
 
     @Test
     public void testLabeledPointToBoardPoint() {
         String labeledPoint = "b7";
         Point expectedPoint = new Point(1, 2);
-        assertEquals(board.labeledPointToBoardPoint(labeledPoint), expectedPoint);
+        Point actualPoint = board.labeledPointToBoardPoint(labeledPoint);
+        assertEquals(expectedPoint, actualPoint);
     }
 }
