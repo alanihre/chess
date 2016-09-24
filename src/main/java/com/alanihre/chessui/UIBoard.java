@@ -27,7 +27,7 @@ class UIBoard extends JComponent {
         this.game = game;
 
         Board board = game.getBoard();
-        setLayout(new GridLayout(board.getWidth(), board.getHeight()));
+        setLayout(new GridLayout(board.getWidth() + 1, board.getHeight() + 1));
     }
 
     void drawBoard() {
@@ -37,9 +37,14 @@ class UIBoard extends JComponent {
 
         Board board = game.getBoard();
 
-        Dimension pieceSize = new Dimension(getWidth() / board.getWidth(), getHeight() / board.getHeight());
+        Dimension pieceSize = new Dimension(getWidth() / (board.getWidth() + 2), getHeight() / (board.getHeight() + 2));
+
+        char[] verticalLabels = board.getVerticalLabels();
 
         for (int i = 0; i < board.getWidth(); i++) {
+            Label currentVerticalLabel = new Label(String.valueOf(verticalLabels[i]).toUpperCase());
+            currentVerticalLabel.setSize(pieceSize);
+            add(currentVerticalLabel);
             for (int pieceIndex = 0; pieceIndex < board.getHeight(); pieceIndex++) {
 
                 Point point = new Point(pieceIndex, i);
@@ -69,6 +74,17 @@ class UIBoard extends JComponent {
                     }
                 });
             }
+        }
+
+        Label blankLabel = new Label();
+        blankLabel.setSize(pieceSize);
+        add(blankLabel);
+
+        char[] horizontalLabels = board.getHorizontalLabels();
+        for (int i = 0; i < board.getWidth(); i++) {
+            Label currentHorizontalLabel = new Label(String.valueOf(horizontalLabels[i]));
+            currentHorizontalLabel.setSize(pieceSize);
+            add(currentHorizontalLabel);
         }
 
     }
