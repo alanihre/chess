@@ -42,8 +42,10 @@ class UIBoard extends JComponent {
         char[] verticalLabels = board.getVerticalLabels();
 
         for (int i = 0; i < board.getWidth(); i++) {
-            Label currentVerticalLabel = new Label(String.valueOf(verticalLabels[i]).toUpperCase());
+            JLabel currentVerticalLabel = new JLabel(String.valueOf(verticalLabels[i]).toUpperCase());
             currentVerticalLabel.setSize(pieceSize);
+            currentVerticalLabel.setVerticalAlignment(SwingConstants.CENTER);
+            currentVerticalLabel.setHorizontalAlignment(SwingConstants.CENTER);
             add(currentVerticalLabel);
             for (int pieceIndex = 0; pieceIndex < board.getHeight(); pieceIndex++) {
 
@@ -85,8 +87,10 @@ class UIBoard extends JComponent {
 
         char[] horizontalLabels = board.getHorizontalLabels();
         for (int i = 0; i < board.getWidth(); i++) {
-            Label currentHorizontalLabel = new Label(String.valueOf(horizontalLabels[i]));
+            JLabel currentHorizontalLabel = new JLabel(String.valueOf(horizontalLabels[i]));
             currentHorizontalLabel.setSize(pieceSize);
+            currentHorizontalLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            currentHorizontalLabel.setVerticalAlignment(SwingConstants.CENTER);
             add(currentHorizontalLabel);
         }
 
