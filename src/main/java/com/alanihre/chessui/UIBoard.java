@@ -27,7 +27,7 @@ class UIBoard extends JComponent {
         this.game = game;
 
         Board board = game.getBoard();
-        setLayout(new GridLayout(board.getWidth() + 1, board.getHeight() + 1));
+        setLayout(new GridLayout(board.getWidth() + 2, board.getHeight() + 2));
     }
 
     void drawBoard() {
@@ -39,14 +39,20 @@ class UIBoard extends JComponent {
 
         Dimension pieceSize = new Dimension(getWidth() / (board.getWidth() + 2), getHeight() / (board.getHeight() + 2));
 
+        addLabel(null, pieceSize);
+
+        char[] horizontalLabels = board.getHorizontalLabels();
+        for (int i = 0; i < board.getWidth(); i++) {
+            addLabel(String.valueOf(horizontalLabels[i]), pieceSize);
+        }
+
+        addLabel(null, pieceSize);
+
         char[] verticalLabels = board.getVerticalLabels();
 
         for (int i = 0; i < board.getWidth(); i++) {
-            JLabel currentVerticalLabel = new JLabel(String.valueOf(verticalLabels[i]).toUpperCase());
-            currentVerticalLabel.setSize(pieceSize);
-            currentVerticalLabel.setVerticalAlignment(SwingConstants.CENTER);
-            currentVerticalLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            add(currentVerticalLabel);
+            addLabel(String.valueOf(verticalLabels[i]), pieceSize);
+
             for (int pieceIndex = 0; pieceIndex < board.getHeight(); pieceIndex++) {
 
                 Position position = new Position(pieceIndex, i);
@@ -79,21 +85,25 @@ class UIBoard extends JComponent {
                     }
                 });
             }
+
+            addLabel(String.valueOf(verticalLabels[i]), pieceSize);
         }
 
-        Label blankLabel = new Label();
-        blankLabel.setSize(pieceSize);
-        add(blankLabel);
+        addLabel(null, pieceSize);
 
-        char[] horizontalLabels = board.getHorizontalLabels();
         for (int i = 0; i < board.getWidth(); i++) {
-            JLabel currentHorizontalLabel = new JLabel(String.valueOf(horizontalLabels[i]));
-            currentHorizontalLabel.setSize(pieceSize);
-            currentHorizontalLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            currentHorizontalLabel.setVerticalAlignment(SwingConstants.CENTER);
-            add(currentHorizontalLabel);
+            addLabel(String.valueOf(horizontalLabels[i]), pieceSize);
         }
 
+        addLabel(null, pieceSize);
+    }
+
+    private void addLabel(String text, Dimension size) {
+        JLabel label = new JLabel(text);
+        label.setSize(size);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.CENTER);
+        add(label);
     }
 
     private void move(Position sourcePosition, Position destinationPosition) {
