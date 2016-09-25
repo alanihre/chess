@@ -65,6 +65,9 @@ class UIBoard extends JComponent {
                         UIPiece uiPiece = (UIPiece) e.getComponent();
                         Position position = uiPiece.getPosition();
                         if (sourcePosition == null) {
+                            if (uiPiece.getPiece() == null) {
+                                return;
+                            }
                             sourcePosition = position;
                         } else {
                             move(sourcePosition, position);
