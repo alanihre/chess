@@ -1,16 +1,21 @@
 package com.alanihre.chess.game;
 
-import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
+import com.alanihre.chess.board.Position;
+import com.alanihre.chess.board.Square;
 import com.alanihre.chess.piece.Piece;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Game {
 
     private final GameDelegate delegate;
     private Board board;
     private Piece.PieceColor currentMovingPieceColor;
+    private List<Move> moves = new ArrayList<Move>();
 
-    Game(GameDelegate delegate) {
+    public Game(GameDelegate delegate) {
         this.delegate = delegate;
 
         this.board = initializeBoard();
@@ -44,19 +49,19 @@ public abstract class Game {
     }
 
     public void movePiece(String oldPosition, String newPosition) {
-        Point oldPositionPoint = getBoard().labeledPointToBoardPoint(oldPosition);
-        Point newPositionPoint = getBoard().labeledPointToBoardPoint(newPosition);
-        movePiece(oldPositionPoint, newPositionPoint);
+        Position oldPositionPosition = getBoard().labeledPointToBoardPoint(oldPosition);
+        Position newPositionPosition = getBoard().labeledPointToBoardPoint(newPosition);
+        movePiece(oldPositionPosition, newPositionPosition);
     }
 
-    public void movePiece(Point oldPosition, Point newPosition) {
+    public void movePiece(Position oldPosition, Position newPosition) {
         //Check if any movement was made at all
         if (oldPosition.equals(newPosition)) {
             throw new InvalidMoveException("Old and new position are equal");
         }
 
-        Piece piece = getBoard().getPieceAtPosition(oldPosition);
-        if (piece == null) {
+        Square square = getBoard().getSquareAtPosition(oldPosition);
+        if (!square.hasPiece()) {
             throw new InvalidMoveException("There is no piece at the entered position");
         }
 
@@ -64,54 +69,80 @@ public abstract class Game {
             throw new InvalidMoveException("New position is outside board bounds");
         }
 
-        if (piece.getColor() != getCurrentMovingPieceColor()) {
+        if (square.getPiece().getColor() != getCurrentMovingPieceColor()) {
             throw new InvalidMoveException("The piece at the entered position can't be moved by you. It has wrong color.");
         }
 
-        if (!canMovePiece(piece, newPosition)) {
+        Square newSquare = getBoard().getSquareAtPosition(newPosition);
+
+        if (!canMakeMove(square, newSquare)) {
             throw new InvalidMoveException("The move is not allowed");
         }
 
         //Check if piece at target position can be captured
-        Piece targetPositionPiece = getBoard().getPieceAtPosition(newPosition);
-        if (targetPositionPiece != null && pieceCanCapturePiece(piece, targetPositionPiece)) {
+        Piece targetPositionPiece = getBoard().getSquareAtPosition(newPosition).getPiece();
+        if (targetPositionPiece != null && pieceCanCapturePiece(square.getPiece(), targetPositionPiece)) {
             capturePiece(targetPositionPiece);
         }
 
-        willMovePiece(piece, newPosition);
+        willMakeMove(square, newSquare);
 
-        getBoard().removePiece(piece);
-        piece.moveTo(newPosition);
-        getBoard().putPiece(piece);
+        addMove(new Move(square, newSquare));
 
-        pieceMoved(piece, oldPosition);
+        square.getPiece().moveTo(newSquare);
 
-        String readableCoordinate = getBoard().boardPointToLabeledPoint(piece.getPosition());
-        getDelegate().pieceMoved(piece, readableCoordinate);
+        pieceMoved(newSquare.getPiece(), oldPosition);
+
+        String readableCoordinate = getBoard().boardPointToLabeledPoint(newSquare.getPosition());
+        getDelegate().pieceMoved(newSquare.getPiece(), readableCoordinate);
 
         prepareForNextMove();
         getDelegate().requestMove(getCurrentMovingPieceColor());
     }
 
-    abstract void willMovePiece(Piece piece, Point newPosition);
+    protected void willMakeMove(Square oldSquare, Square newSquare) {
 
-    abstract void pieceMoved(Piece piece, Point oldPosition);
-
-    abstract void prepareForNextMove();
-
-    protected boolean canMovePiece(Piece piece, Point newPosition) {
-        if (!piece.canMoveTo(newPosition)) {
-            return false;
-        }
-
-        return true;
     }
 
-    abstract boolean pieceCanCapturePiece(Piece capturingPiece, Piece targetPiece);
+    protected void addMove(Move move) {
+        moves.add(move);
+    }
+
+    protected List<Move> getMoves() {
+        return moves;
+    }
+
+    protected Move getLastMove() {
+        if (moves.size() > 0) {
+            return moves.get(moves.size() - 1);
+        }
+        return null;
+    }
+
+    protected void pieceMoved(Piece piece, Position oldPosition) {
+
+    }
+
+    protected void prepareForNextMove() {
+        if (getCurrentMovingPieceColor() == Piece.PieceColor.BLACK) {
+            setCurrentMovingPieceColor(Piece.PieceColor.WHITE);
+        } else {
+            setCurrentMovingPieceColor(Piece.PieceColor.BLACK);
+        }
+    }
+
+    protected boolean canMakeMove(Square oldSquare, Square newSquare) {
+        return oldSquare.getPiece().canMoveTo(newSquare);
+    }
+
+    protected boolean pieceCanCapturePiece(Piece capturingPiece, Piece targetPiece) {
+        return targetPiece.getColor() != capturingPiece.getColor();
+    }
 
     protected void capturePiece(Piece piece) {
-        getBoard().removePiece(piece);
-        String readableCoordinate = getBoard().boardPointToLabeledPoint(piece.getPosition());
+        Square square = piece.getSquare();
+        square.removePiece();
+        String readableCoordinate = getBoard().boardPointToLabeledPoint(square.getPosition());
         getDelegate().pieceCaptured(piece, readableCoordinate);
     }
 }

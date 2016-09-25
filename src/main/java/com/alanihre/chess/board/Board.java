@@ -1,7 +1,10 @@
 package com.alanihre.chess.board;
 
-import com.alanihre.chess.Point;
+import com.alanihre.chess.game.GamePlayException;
 import com.alanihre.chess.piece.Piece;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Board {
 
@@ -9,13 +12,13 @@ public abstract class Board {
     private final int height;
     private final char[] horizontalLabels;
     private final char[] verticalLabels;
-    private Piece[][] squares;
+    private Square[][] squares;
 
     protected Board(int width, int height) {
         this.width = width;
         this.height = height;
 
-        squares = new Piece[width][height];
+        createSquares();
 
         horizontalLabels = createHorizontalLabels();
         verticalLabels = createVerticalLabels();
@@ -49,6 +52,17 @@ public abstract class Board {
         return verticalLabels;
     }
 
+    private void createSquares() {
+        squares = new Square[width][height];
+        for (int file = 0; file < getWidth(); file++) {
+            for (int rank = 0; rank < getHeight(); rank++) {
+                Position position = new Position(file, rank);
+                Square square = new Square(this, position);
+                squares[file][rank] = square;
+            }
+        }
+    }
+
     public char[] getHorizontalLabels() {
         return horizontalLabels;
     }
@@ -57,36 +71,34 @@ public abstract class Board {
         return verticalLabels;
     }
 
-    public void putPiece(Piece piece) {
-        int xPosition = piece.getPosition().getX();
-        int yPosition = piece.getPosition().getY();
-        squares[xPosition][yPosition] = piece;
+    public Square getSquareAtPosition(Position position) {
+        return squares[position.getFile()][position.getRank()];
     }
 
-    public void removePiece(Piece piece) {
-        int xPosition = piece.getPosition().getX();
-        int yPosition = piece.getPosition().getY();
-        squares[xPosition][yPosition] = null;
+    public void putPiece(Piece piece, Position position) throws GamePlayException {
+        Square square = getSquareAtPosition(position);
+
+        if (square.hasPiece()) {
+            throw new GamePlayException("A piece is already occupying square at " + square.getPosition());
+        }
+
+        square.setPiece(piece);
     }
 
-    public Piece getPieceAtPosition(Point position) {
-        return squares[position.getX()][position.getY()];
+    public boolean positionWithinBoardBounds(Position position) {
+        return position.getFile() < getWidth()
+                && position.getFile() >= 0
+                && position.getRank() < getHeight()
+                && position.getRank() >= 0;
     }
 
-    public boolean positionWithinBoardBounds(Point position) {
-        return position.getX() < getWidth()
-                && position.getX() >= 0
-                && position.getY() < getHeight()
-                && position.getY() >= 0;
-    }
-
-    public String boardPointToLabeledPoint(Point point) {
-        String xLabel = String.valueOf(horizontalLabels[point.getX()]);
-        String yLabel = String.valueOf(verticalLabels[point.getY()]);
+    public String boardPointToLabeledPoint(Position position) {
+        String xLabel = String.valueOf(horizontalLabels[position.getFile()]);
+        String yLabel = String.valueOf(verticalLabels[position.getRank()]);
         return xLabel + yLabel;
     }
 
-    public Point labeledPointToBoardPoint(String labeledPoint) {
+    public Position labeledPointToBoardPoint(String labeledPoint) {
         char xLabel = labeledPoint.charAt(0);
         char yLabel = labeledPoint.charAt(1);
         int pointX = -1;
@@ -105,6 +117,20 @@ public abstract class Board {
             }
         }
 
-        return new Point(pointX, pointY);
+        return new Position(pointX, pointY);
+    }
+
+    public List<Piece> getPiecesInPath(Path path) {
+        List<Piece> pieces = new ArrayList<Piece>();
+
+        for (Position node : path.getNodes()) {
+            Square squareAtPosition = getSquareAtPosition(node);
+            if (squareAtPosition.hasPiece()) {
+                Piece pieceInSquare = squareAtPosition.getPiece();
+                pieces.add(pieceInSquare);
+            }
+        }
+
+        return pieces;
     }
 }

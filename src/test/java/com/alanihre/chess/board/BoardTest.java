@@ -1,6 +1,5 @@
 package com.alanihre.chess.board;
 
-import com.alanihre.chess.Point;
 import com.alanihre.chess.piece.Pawn;
 import com.alanihre.chess.piece.Piece;
 
@@ -11,7 +10,6 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -24,11 +22,7 @@ public class BoardTest {
 
     @Before
     public void setUp() {
-        board = new Board(BOARD_SIZE_WIDTH, BOARD_SIZE_HEIGHT) {
-            public void setupBoard() {
-
-            }
-        };
+        board = new StubBoard(BOARD_SIZE_WIDTH, BOARD_SIZE_HEIGHT);
     }
 
     @Test
@@ -51,46 +45,36 @@ public class BoardTest {
 
     @Test
     public void testPositionWithinBoardBounds() {
-        Point pointOutsideBoardBounds = new Point(BOARD_SIZE_WIDTH + 1, BOARD_SIZE_HEIGHT + 1);
-        assertFalse(board.positionWithinBoardBounds(pointOutsideBoardBounds));
+        Position positionOutsideBoardBounds = new Position(BOARD_SIZE_WIDTH + 1, BOARD_SIZE_HEIGHT + 1);
+        assertFalse(board.positionWithinBoardBounds(positionOutsideBoardBounds));
 
-        Point pointInsideBoardBounds = new Point(BOARD_SIZE_WIDTH - 1, BOARD_SIZE_HEIGHT - 1);
-        assertTrue(board.positionWithinBoardBounds(pointInsideBoardBounds));
+        Position positionInsideBoardBounds = new Position(BOARD_SIZE_WIDTH - 1, BOARD_SIZE_HEIGHT - 1);
+        assertTrue(board.positionWithinBoardBounds(positionInsideBoardBounds));
     }
 
     @Test
-    public void testAddingPiece() {
-        Point position = new Point(0, 0);
-        Piece piece = new Pawn(position, Piece.PieceColor.BLACK);
+    public void testPutPiece() {
+        Position position = new Position(0, 0);
+        Piece piece = new Pawn(Piece.PieceColor.BLACK);
 
-        board.putPiece(piece);
-        Piece actualPieceAtPosition = board.getPieceAtPosition(position);
+        board.putPiece(piece, position);
+        Piece actualPieceAtPosition = board.getSquareAtPosition(position).getPiece();
         assertSame(piece, actualPieceAtPosition);
     }
 
     @Test
-    public void testRemovingPiece() {
-        Point position = new Point(0, 0);
-        Piece piece = new Pawn(position, Piece.PieceColor.BLACK);
-
-        board.putPiece(piece);
-        board.removePiece(piece);
-        assertNull(board.getPieceAtPosition(position));
-    }
-
-    @Test
     public void testBoardPointToLabeledPoint() {
-        Point point = new Point(1, 2);
+        Position position = new Position(1, 2);
         String expectedLabeledPoint = "b7";
-        String actualLabeledPoint = board.boardPointToLabeledPoint(point);
+        String actualLabeledPoint = board.boardPointToLabeledPoint(position);
         assertEquals(expectedLabeledPoint, actualLabeledPoint);
     }
 
     @Test
     public void testLabeledPointToBoardPoint() {
         String labeledPoint = "b7";
-        Point expectedPoint = new Point(1, 2);
-        Point actualPoint = board.labeledPointToBoardPoint(labeledPoint);
-        assertEquals(expectedPoint, actualPoint);
+        Position expectedPosition = new Position(1, 2);
+        Position actualPosition = board.labeledPointToBoardPoint(labeledPoint);
+        assertEquals(expectedPosition, actualPosition);
     }
 }

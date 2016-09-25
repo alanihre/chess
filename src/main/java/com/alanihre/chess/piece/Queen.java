@@ -1,11 +1,14 @@
 package com.alanihre.chess.piece;
 
-import com.alanihre.chess.Point;
+import com.alanihre.chess.piece.movement.AnyDirectionMovement;
 
 public class Queen extends Piece {
 
-    public Queen(Point position, PieceColor color) {
-        super(PieceType.QUEEN, position, color);
+    public Queen(PieceColor color) {
+        super(PieceType.QUEEN, color);
+
+        AnyDirectionMovement movement = new AnyDirectionMovement();
+        setMovement(movement);
     }
 
     public String getPieceName() {
@@ -18,17 +21,5 @@ public class Queen extends Piece {
         } else {
             return '♛';
         }
-    }
-
-    public boolean canMoveTo(Point newPosition) {
-        //The queen can move like both the rook and the bishop
-
-        Point piecePosition = getPosition();
-        int positionXDelta = Math.abs(newPosition.getX() - piecePosition.getX());
-        int positionYDelta = Math.abs(newPosition.getY() - piecePosition.getY());
-
-        return newPosition.getX() == piecePosition.getX()
-                || newPosition.getY() == piecePosition.getY()
-                || positionXDelta == positionYDelta;
     }
 }

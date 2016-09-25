@@ -1,7 +1,7 @@
 package com.alanihre.chessui;
 
-import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
+import com.alanihre.chess.board.Position;
 import com.alanihre.chess.game.Game;
 import com.alanihre.chess.game.GamePlayException;
 import com.alanihre.chess.piece.Piece;
@@ -14,7 +14,7 @@ import javax.swing.*;
 
 class UIBoard extends JComponent {
 
-    private Point sourcePoint;
+    private Position sourcePosition;
     private Game game;
 
     UIBoard() {
@@ -42,10 +42,10 @@ class UIBoard extends JComponent {
         for (int i = 0; i < board.getWidth(); i++) {
             for (int pieceIndex = 0; pieceIndex < board.getHeight(); pieceIndex++) {
 
-                Point point = new Point(pieceIndex, i);
-                Piece piece = board.getPieceAtPosition(point);
+                Position position = new Position(pieceIndex, i);
+                Piece piece = board.getSquareAtPosition(position).getPiece();
 
-                UIPiece uiPiece = new UIPiece(piece, point, pieceSize);
+                UIPiece uiPiece = new UIPiece(piece, position, pieceSize);
 
                 if ((i % 2 ^ pieceIndex % 2) != 0) {
                     uiPiece.setBackground(new Color(248, 213, 131));
@@ -58,12 +58,12 @@ class UIBoard extends JComponent {
                 uiPiece.addMouseListener(new MouseAdapter() {
                     public void mouseClicked(MouseEvent e) {
                         UIPiece uiPiece = (UIPiece) e.getComponent();
-                        Point point = uiPiece.getPoint();
-                        if (sourcePoint == null) {
-                            sourcePoint = point;
+                        Position position = uiPiece.getPosition();
+                        if (sourcePosition == null) {
+                            sourcePosition = position;
                         } else {
-                            move(sourcePoint, point);
-                            sourcePoint = null;
+                            move(sourcePosition, position);
+                            sourcePosition = null;
                         }
 
                     }
@@ -73,9 +73,9 @@ class UIBoard extends JComponent {
 
     }
 
-    private void move(Point sourcePoint, Point destinationPoint) {
+    private void move(Position sourcePosition, Position destinationPosition) {
         try {
-            game.movePiece(sourcePoint, destinationPoint);
+            game.movePiece(sourcePosition, destinationPosition);
         } catch (GamePlayException exception) {
             //System.out.println(exception.getMessage());
             //System.out.println("Please try again.");

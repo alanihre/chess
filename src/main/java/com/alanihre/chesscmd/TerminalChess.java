@@ -1,7 +1,7 @@
 package com.alanihre.chesscmd;
 
-import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
+import com.alanihre.chess.board.Position;
 import com.alanihre.chess.game.Game;
 import com.alanihre.chess.game.GameDelegate;
 import com.alanihre.chess.game.GamePlayException;
@@ -89,7 +89,7 @@ public class TerminalChess implements GameDelegate {
             for (int pieceIndex = 0; pieceIndex < board.getHeight(); pieceIndex++) {
                 System.out.print(' ');
 
-                Piece piece = board.getPieceAtPosition(new Point(pieceIndex, i));
+                Piece piece = board.getSquareAtPosition(new Position(pieceIndex, i)).getPiece();
                 if (piece != null) {
                     char pieceSymbol = piece.getSymbol();
                     System.out.print(pieceSymbol);

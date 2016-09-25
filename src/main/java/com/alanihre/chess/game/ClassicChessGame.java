@@ -1,21 +1,17 @@
 package com.alanihre.chess.game;
 
-import com.alanihre.chess.Point;
 import com.alanihre.chess.board.Board;
 import com.alanihre.chess.board.ClassicBoard;
+import com.alanihre.chess.board.Position;
+import com.alanihre.chess.board.Square;
 import com.alanihre.chess.piece.King;
 import com.alanihre.chess.piece.Pawn;
 import com.alanihre.chess.piece.Piece;
 import com.alanihre.chess.piece.PieceType;
 
-import java.util.List;
-
 public class ClassicChessGame extends Game {
 
-    private Piece lastMovedPiece;
-    private boolean isPassantMove;
     private boolean isCheckingForCheck = false;
-    private Point newPositionForMove;
 
     public ClassicChessGame(GameDelegate delegate) {
         super(delegate);
@@ -28,51 +24,27 @@ public class ClassicChessGame extends Game {
     }
 
     @Override
-    protected boolean canMovePiece(Piece piece, Point newPosition) {
-        if (!isCheckingForCheck) {
-            newPositionForMove = newPosition;
+    protected boolean canMakeMove(Square oldSquare, Square newSquare) {
+        if (!super.canMakeMove(oldSquare, newSquare)) {
+            return false;
         }
 
-        if (!piece.canMoveTo(newPosition)) {
-            if (piece instanceof Pawn) {
-                Piece pieceAtPosition = getBoard().getPieceAtPosition(newPosition);
-                if (!checkPassant(piece, newPosition)
-                        && (pieceAtPosition == null || !pieceCanCapturePiece(piece, pieceAtPosition))) {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
-
-        if (!piece.canLeap()) {
-            //Check if movement path is blocked by other pieces
-            List<Point> movementPath = piece.getMovementPathToPosition(newPosition);
-            int numberOfMoves = movementPath.size();
-            for (int i = 0; i < numberOfMoves; i++) {
-                Point point = movementPath.get(i);
-                Piece pieceAtPosition = getBoard().getPieceAtPosition(point);
-                if (isCheckingForCheck && point == newPositionForMove) {
-                    pieceAtPosition = null;
-                }
-                //If this is the last move in the path; check if the piece there can be captured
-                if (pieceAtPosition != null
-                        && (i != numberOfMoves - 1 || !pieceCanCapturePiece(piece, pieceAtPosition))) {
-                    //There are other pieces blocking the movement
-                    return false;
-                }
-            }
+        Piece piece = oldSquare.getPiece();
+        if (piece instanceof Pawn
+                && ((Pawn) piece).canMakePassantCapture(newSquare)
+                && !passantCapturePossible(piece, newSquare)) {
+            return false;
         }
 
         if (!isCheckingForCheck || piece.getColor() != getCurrentMovingPieceColor()) {
-            Point kingPosition;
+            Square kingSquare;
             if (piece instanceof King) {
-                kingPosition = newPosition;
+                kingSquare = newSquare;
             } else {
                 Piece king = findKingOnBoard(piece.getColor());
-                kingPosition = king.getPosition();
+                kingSquare = king.getSquare();
             }
-            if (isCheck(piece.getColor(), kingPosition)) {
+            if (isCheck(piece.getColor(), kingSquare)) {
                 //Move would put king in check
                 return false;
             }
@@ -81,84 +53,64 @@ public class ClassicChessGame extends Game {
         return true;
     }
 
-    protected void pieceMoved(Piece piece, Point oldPosition) {
-        if (isPassantMove) {
-            isPassantMove = false;
+    @Override
+    protected void willMakeMove(Square oldSquare, Square newSquare) {
+        super.willMakeMove(oldSquare, newSquare);
+
+        Piece piece = oldSquare.getPiece();
+        if (piece instanceof Pawn
+                && ((Pawn) piece).canMakePassantCapture(newSquare)
+                && passantCapturePossible(piece, newSquare)) {
+            Piece lastMovedPiece = getLastMove().getPiece();
             capturePiece(lastMovedPiece);
         }
-        lastMovedPiece = piece;
-        checkPromotion(piece);
+    }
 
-        isCheckingForCheck = false;
-        newPositionForMove = null;
+    protected void pieceMoved(Piece piece, Position oldPosition) {
+        super.pieceMoved(piece, oldPosition);
+
+        checkPromotion(piece);
 
         if (isCheckMate(getCurrentMovingPieceColor())) {
             getDelegate().gameEnded("Game ended because king is in check mate");
         }
     }
 
+    private boolean passantCapturePossible(Piece capturingPiece, Square target) {
+        Piece lastMovedPiece = getLastMove().getPiece();
+        return lastMovedPiece != null && ((Pawn) capturingPiece).getPassantPiece(target) == lastMovedPiece;
+    }
+
+
     private void checkPromotion(Piece piece) {
         if (piece.getClass() == Pawn.class) {
-            Point piecePosition = piece.getPosition();
-            int piecePositionY = piecePosition.getY();
+            Square square = piece.getSquare();
+            Position piecePosition = square.getPosition();
+            int piecePositionY = piecePosition.getRank();
             if (piecePositionY == 0 || piecePositionY == getBoard().getWidth() - 1) {
                 PieceType[] pieceTypes = new PieceType[]{PieceType.BISHOP, PieceType.KNIGHT, PieceType.QUEEN, PieceType.ROOK};
                 PieceType pieceType = getDelegate().requestNewPieceOfType(pieceTypes, "Promotion. Please pick another piece to replace the pawn.");
                 Piece.PieceColor pieceColor = getCurrentMovingPieceColor();
-                Piece newPiece = PieceType.pieceFromType(pieceType, piecePosition, pieceColor);
+                Piece newPiece = PieceType.pieceFromType(pieceType, pieceColor);
                 if (newPiece instanceof Pawn || newPiece instanceof King) {
                     throw new GamePlayException("Invalid piece type");
                 } else {
-                    getBoard().putPiece(newPiece);
+                    square.removePiece();
+                    square.setPiece(newPiece);
                 }
             }
         }
     }
 
-    private boolean checkPassant(Piece piece, Point newPosition) {
-        Pawn pawn;
-        if (piece instanceof Pawn && lastMovedPiece != null && lastMovedPiece instanceof Pawn) {
-            pawn = (Pawn) piece;
-        } else {
-            return false;
-        }
-        int piecePositionX = piece.getPosition().getX();
-        int lastMovedPiecePositionX = lastMovedPiece.getPosition().getX();
-
-        return lastMovedPiece.getNumberOfMoves() == 1
-                && (lastMovedPiecePositionX == piecePositionX + 1 || lastMovedPiecePositionX == piecePositionX - 1)
-                && pawn.canMakeCapturingMove(newPosition);
-    }
-
-    protected void willMovePiece(Piece piece, Point newPosition) {
-        isPassantMove = checkPassant(piece, newPosition);
-    }
-
-    public void prepareForNextMove() {
-        if (getCurrentMovingPieceColor() == Piece.PieceColor.BLACK) {
-            setCurrentMovingPieceColor(Piece.PieceColor.WHITE);
-        } else {
-            setCurrentMovingPieceColor(Piece.PieceColor.BLACK);
-        }
-    }
-
-    protected boolean pieceCanCapturePiece(Piece capturingPiece, Piece targetPiece) {
-        if (capturingPiece instanceof Pawn) {
-            Pawn pawn = (Pawn) capturingPiece;
-            if (!pawn.canMakeCapturingMove(targetPiece.getPosition())) {
-                return false;
-            }
-        }
-        return targetPiece.getColor() != capturingPiece.getColor();
-    }
-
-    private boolean isCheck(Piece.PieceColor pieceColor, Point kingPosition) {
+    //TODO: Move into king piece
+    private boolean isCheck(Piece.PieceColor pieceColor, Square kingSquare) {
         for (int file = 0; file < getBoard().getWidth(); file++) {
             for (int rank = 0; rank < getBoard().getHeight(); rank++) {
-                Piece piece = getBoard().getPieceAtPosition(new Point(file, rank));
+                Square square = getBoard().getSquareAtPosition(new Position(file, rank));
+                Piece piece = square.getPiece();
                 if (piece != null && piece.getColor() != pieceColor) {
                     isCheckingForCheck = true;
-                    if (canMovePiece(piece, kingPosition)) {
+                    if (canMakeMove(square, kingSquare)) {
                         isCheckingForCheck = false;
                         return true;
                     }
@@ -172,7 +124,7 @@ public class ClassicChessGame extends Game {
     private Piece findKingOnBoard(Piece.PieceColor pieceColor) {
         for (int file = 0; file < getBoard().getWidth(); file++) {
             for (int rank = 0; rank < getBoard().getHeight(); rank++) {
-                Piece piece = getBoard().getPieceAtPosition(new Point(file, rank));
+                Piece piece = getBoard().getSquareAtPosition(new Position(file, rank)).getPiece();
                 if (piece != null & piece instanceof King && piece.getColor() == pieceColor) {
                     return piece;
                 }
@@ -183,9 +135,10 @@ public class ClassicChessGame extends Game {
 
     private boolean isCheckMate(Piece.PieceColor pieceColor) {
         Piece king = findKingOnBoard(pieceColor);
-        Point kingPosition = king.getPosition();
+        Square kingSquare = king.getSquare();
+        Position kingPosition = kingSquare.getPosition();
 
-        if (!isCheck(pieceColor, kingPosition)) {
+        if (!isCheck(pieceColor, kingSquare)) {
             return false;
         }
 
@@ -194,11 +147,13 @@ public class ClassicChessGame extends Game {
                 if (i == 0 && j == 0) {
                     continue;
                 }
-                Point point = new Point(kingPosition.getX() + i, kingPosition.getY() + j);
-                if (!getBoard().positionWithinBoardBounds(point)) {
+                Position position = new Position(kingPosition.getFile() + i, kingPosition.getRank() + j);
+                if (!getBoard().positionWithinBoardBounds(position)) {
                     continue;
                 }
-                if (canMovePiece(king, point)) {
+                Square square = getBoard().getSquareAtPosition(position);
+                if (canMakeMove(kingSquare, square)) {
+                    //TODO: Check isCheck here as well since it maybe can move but still does not get it out of check
                     isCheckingForCheck = false;
                     return true;
                 }

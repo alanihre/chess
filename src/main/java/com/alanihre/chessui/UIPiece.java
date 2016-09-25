@@ -1,6 +1,6 @@
 package com.alanihre.chessui;
 
-import com.alanihre.chess.Point;
+import com.alanihre.chess.board.Position;
 import com.alanihre.chess.piece.Piece;
 
 import java.awt.*;
@@ -10,14 +10,14 @@ import javax.swing.*;
 public class UIPiece extends JLabel {
 
     private final Piece piece;
-    private final Point point;
+    private final Position position;
 
-    public UIPiece(Piece piece, Point point, Dimension dimension) {
+    public UIPiece(Piece piece, Position position, Dimension dimension) {
         super();
         setSize(dimension);
 
         this.piece = piece;
-        this.point = point;
+        this.position = position;
 
         setupLabel();
     }
@@ -26,8 +26,8 @@ public class UIPiece extends JLabel {
         return piece;
     }
 
-    Point getPoint() {
-        return point;
+    Position getPosition() {
+        return position;
     }
 
     private void setupLabel() {
