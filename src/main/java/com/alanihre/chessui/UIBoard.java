@@ -93,9 +93,8 @@ class UIBoard extends JComponent {
         try {
             game.movePiece(sourcePosition, destinationPosition);
         } catch (GamePlayException exception) {
-            //System.out.println(exception.getMessage());
-            //System.out.println("Please try again.");
-            //requestMove(color);
+            JOptionPane.showMessageDialog(this, exception.getMessage());
+            this.sourcePosition = null;
         }
     }
 }
