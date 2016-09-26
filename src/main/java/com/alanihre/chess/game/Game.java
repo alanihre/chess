@@ -124,11 +124,7 @@ public abstract class Game {
     }
 
     protected void prepareForNextMove() {
-        if (getCurrentMovingPieceColor() == Piece.PieceColor.BLACK) {
-            setCurrentMovingPieceColor(Piece.PieceColor.WHITE);
-        } else {
-            setCurrentMovingPieceColor(Piece.PieceColor.BLACK);
-        }
+        setCurrentMovingPieceColor(Piece.PieceColor.invert(getCurrentMovingPieceColor()));
     }
 
     protected boolean canMakeMove(Square oldSquare, Square newSquare) {

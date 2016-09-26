@@ -71,7 +71,7 @@ public class ClassicChessGame extends Game {
 
         checkPromotion(piece);
 
-        if (isCheckMate(getCurrentMovingPieceColor())) {
+        if (isCheckMate(getCurrentMovingPieceColor()) || isCheckMate(Piece.PieceColor.invert(getCurrentMovingPieceColor()))) {
             getDelegate().gameEnded("Game ended because king is in check mate");
         }
     }

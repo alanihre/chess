@@ -81,6 +81,14 @@ public abstract class Piece {
     }
 
     public enum PieceColor {
-        BLACK, WHITE
+        BLACK, WHITE;
+
+        public static PieceColor invert(PieceColor color) {
+            if (color == WHITE) {
+                return BLACK;
+            }
+
+            return WHITE;
+        }
     }
 }
