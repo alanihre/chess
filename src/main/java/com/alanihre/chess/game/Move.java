@@ -8,7 +8,7 @@ class Move {
     private Square origin;
     private Square target;
 
-    public Move(Square origin, Square target) {
+    Move(Square origin, Square target) {
         this.origin = origin;
         this.target = target;
         piece = this.origin.getPiece();
