@@ -102,7 +102,7 @@ public class ClassicChessGame extends Game {
         }
     }
 
-    //TODO: Move into king piece
+    //TODO: Move into king class
     private boolean isCheck(Piece.PieceColor pieceColor, Square kingSquare) {
         for (int file = 0; file < getBoard().getWidth(); file++) {
             for (int rank = 0; rank < getBoard().getHeight(); rank++) {

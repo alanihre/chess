@@ -36,6 +36,4 @@ public class GameTest {
         Square square = game.getBoard().getSquareAtPosition(new Position(PIECE_START_POSITION_X, PIECE_START_POSITION_Y));
         assertNull(square.getPiece());
     }
-
-    //TODO: Write more tests
 }
