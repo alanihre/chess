@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class PawnTest extends PieceTestBase{
+public class PawnTest extends PieceTestBase {
 
     @Before
     public void setUp() {

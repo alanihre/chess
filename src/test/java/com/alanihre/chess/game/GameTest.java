@@ -1,11 +1,9 @@
 package com.alanihre.chess.game;
 
 import com.alanihre.chess.board.Position;
-import com.alanihre.chess.board.Board;
 import com.alanihre.chess.board.Square;
 import com.alanihre.chess.piece.Knight;
 import com.alanihre.chess.piece.Piece;
-import com.alanihre.chess.piece.PieceType;
 
 import org.junit.Before;
 import org.junit.Test;

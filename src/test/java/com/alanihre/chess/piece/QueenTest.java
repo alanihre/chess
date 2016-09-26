@@ -7,8 +7,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class QueenTest extends PieceTestBase{
-    
+public class QueenTest extends PieceTestBase {
+
     @Before
     public void setUp() {
         piece = new Queen(PIECE_COLOR);
