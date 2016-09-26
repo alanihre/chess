@@ -12,46 +12,46 @@ import static org.junit.Assert.assertTrue;
 
 public class PositionTest {
 
-    private static int FILE = 1;
-    private static int RANK = 2;
+  private static int FILE = 1;
+  private static int RANK = 2;
 
-    private Position position;
+  private Position position;
 
-    @Before
-    public void setUp() {
-        position = new Position(FILE, RANK);
-    }
+  @Before
+  public void setUp() {
+    position = new Position(FILE, RANK);
+  }
 
-    @Test
-    public void testConstructor() {
-        assertEquals(FILE, position.getFile());
-        assertEquals(RANK, position.getRank());
-    }
+  @Test
+  public void testConstructor() {
+    assertEquals(FILE, position.getFile());
+    assertEquals(RANK, position.getRank());
+  }
 
-    @Test
-    public void testEqualPositions() {
-        Position position2 = new Position(FILE, RANK);
-        assertTrue(position.equals(position2));
-    }
+  @Test
+  public void testEqualPositions() {
+    Position position2 = new Position(FILE, RANK);
+    assertTrue(position.equals(position2));
+  }
 
-    @Test
-    public void testNotEqualPositions() {
-        Position position3 = new Position(1, 3);
-        assertFalse(position.equals(position3));
-    }
+  @Test
+  public void testNotEqualPositions() {
+    Position position3 = new Position(1, 3);
+    assertFalse(position.equals(position3));
+  }
 
-    @Test
-    public void testToString() {
-        String pointAsString = position.toString();
-        assertEquals("(" + FILE + "," + RANK + ")", pointAsString);
-    }
+  @Test
+  public void testToString() {
+    String pointAsString = position.toString();
+    assertEquals("(" + FILE + "," + RANK + ")", pointAsString);
+  }
 
-    @Test
-    public void testGetOffsetTo() {
-        Position offsetPosition = new Position(FILE + 2, RANK - 1);
-        Offset expectedOffset = new Offset(2, -1);
-        Offset actualOffset = position.getOffsetTo(offsetPosition);
-        assertEquals(expectedOffset.getX(), actualOffset.getX());
-        assertEquals(expectedOffset.getY(), actualOffset.getY());
-    }
+  @Test
+  public void testGetOffsetTo() {
+    Position offsetPosition = new Position(FILE + 2, RANK - 1);
+    Offset expectedOffset = new Offset(2, -1);
+    Offset actualOffset = position.getOffsetTo(offsetPosition);
+    assertEquals(expectedOffset.getX(), actualOffset.getX());
+    assertEquals(expectedOffset.getY(), actualOffset.getY());
+  }
 }

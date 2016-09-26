@@ -6,46 +6,46 @@ import com.alanihre.chess.board.Position;
 
 public class FourDirectionMovement implements PieceMovement {
 
-    public Path getPath(Position origin, Position destination) {
-        Offset offset = origin.getOffsetTo(destination);
+  public Path getPath(Position origin, Position destination) {
+    Offset offset = origin.getOffsetTo(destination);
 
-        if (offset.isOnlyHorizontal()) {
-            return getHorizontalPath(origin, destination);
-        } else if (offset.isOnlyVertical()) {
-            return getVerticalPath(origin, destination);
-        }
-
-        return null;
+    if (offset.isOnlyHorizontal()) {
+      return getHorizontalPath(origin, destination);
+    } else if (offset.isOnlyVertical()) {
+      return getVerticalPath(origin, destination);
     }
 
-    private Path getHorizontalPath(Position origin, Position target) {
-        Path path = new Path();
-        Offset offset = origin.getOffsetTo(target);
+    return null;
+  }
 
-        int direction = Integer.signum(offset.getX());
-        // We do not want to include our initial square
-        int x = origin.getFile() + direction;
-        for (; x != target.getFile(); x += direction) {
-            Position node = new Position(x, origin.getRank());
-            path.addNode(node);
-        }
+  private Path getHorizontalPath(Position origin, Position target) {
+    Path path = new Path();
+    Offset offset = origin.getOffsetTo(target);
 
-        return path;
+    int direction = Integer.signum(offset.getX());
+    // We do not want to include our initial square
+    int x = origin.getFile() + direction;
+    for (; x != target.getFile(); x += direction) {
+      Position node = new Position(x, origin.getRank());
+      path.addNode(node);
     }
 
-    private Path getVerticalPath(Position origin, Position target) {
-        Path path = new Path();
-        Offset offset = origin.getOffsetTo(target);
+    return path;
+  }
 
-        int direction = Integer.signum(offset.getY());
-        // We do not want to include our initial square
-        int y = origin.getRank() + direction;
+  private Path getVerticalPath(Position origin, Position target) {
+    Path path = new Path();
+    Offset offset = origin.getOffsetTo(target);
 
-        for (; y != target.getRank(); y += direction) {
-            Position node = new Position(origin.getFile(), y);
-            path.addNode(node);
-        }
+    int direction = Integer.signum(offset.getY());
+    // We do not want to include our initial square
+    int y = origin.getRank() + direction;
 
-        return path;
+    for (; y != target.getRank(); y += direction) {
+      Position node = new Position(origin.getFile(), y);
+      path.addNode(node);
     }
+
+    return path;
+  }
 }

@@ -6,31 +6,31 @@ import com.alanihre.chess.board.Position;
 
 public class DiagonalMovement implements PieceMovement {
 
-    public Path getPath(Position origin, Position destination) {
-        Offset offset = origin.getOffsetTo(destination);
+  public Path getPath(Position origin, Position destination) {
+    Offset offset = origin.getOffsetTo(destination);
 
-        if (offset.isDiagonal()) {
-            return getDiagonalPath(origin, destination);
-        }
-
-        return null;
+    if (offset.isDiagonal()) {
+      return getDiagonalPath(origin, destination);
     }
 
-    private Path getDiagonalPath(Position origin, Position target) {
-        Path path = new Path();
-        Offset offset = origin.getOffsetTo(target);
+    return null;
+  }
 
-        int directionFile = Integer.signum(offset.getX());
-        int directionRank = Integer.signum(offset.getY());
+  private Path getDiagonalPath(Position origin, Position target) {
+    Path path = new Path();
+    Offset offset = origin.getOffsetTo(target);
 
-        //Since movement is diagonal, delta is the same size for X and Y.
-        for (int i = 1; i < Math.abs(offset.getX()); i++) {
-            int file = origin.getFile() + directionFile * i;
-            int rank = origin.getRank() + directionRank * i;
-            Position node = new Position(file, rank);
-            path.addNode(node);
+    int directionFile = Integer.signum(offset.getX());
+    int directionRank = Integer.signum(offset.getY());
 
-        }
-        return path;
+    //Since movement is diagonal, delta is the same size for X and Y.
+    for (int i = 1; i < Math.abs(offset.getX()); i++) {
+      int file = origin.getFile() + directionFile * i;
+      int rank = origin.getRank() + directionRank * i;
+      Position node = new Position(file, rank);
+      path.addNode(node);
+
     }
+    return path;
+  }
 }

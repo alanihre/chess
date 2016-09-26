@@ -9,52 +9,52 @@ import javax.swing.*;
 
 public class UIPiece extends JLabel {
 
-    private final Piece piece;
-    private final Position position;
+  private final Piece piece;
+  private final Position position;
 
-    public UIPiece(Piece piece, Position position, Dimension dimension) {
-        super();
-        setSize(dimension);
+  public UIPiece(Piece piece, Position position, Dimension dimension) {
+    super();
+    setSize(dimension);
 
-        this.piece = piece;
-        this.position = position;
+    this.piece = piece;
+    this.position = position;
 
-        setupLabel();
+    setupLabel();
+  }
+
+  Piece getPiece() {
+    return piece;
+  }
+
+  Position getPosition() {
+    return position;
+  }
+
+  private void setupLabel() {
+    setOpaque(true);
+    if (piece != null) {
+      setText(String.valueOf(piece.getSymbol()));
     }
+    calculateFontSize();
+    setHorizontalAlignment(SwingConstants.CENTER);
+    setVerticalAlignment(SwingConstants.CENTER);
+  }
 
-    Piece getPiece() {
-        return piece;
-    }
+  private void calculateFontSize() {
+    Font labelFont = getFont();
+    String labelText = getText();
 
-    Position getPosition() {
-        return position;
-    }
+    int stringWidth = getFontMetrics(labelFont).stringWidth(labelText);
+    int componentWidth = getWidth();
 
-    private void setupLabel() {
-        setOpaque(true);
-        if (piece != null) {
-            setText(String.valueOf(piece.getSymbol()));
-        }
-        calculateFontSize();
-        setHorizontalAlignment(SwingConstants.CENTER);
-        setVerticalAlignment(SwingConstants.CENTER);
-    }
+    double widthRatio = (double) componentWidth / (double) stringWidth;
 
-    private void calculateFontSize() {
-        Font labelFont = getFont();
-        String labelText = getText();
+    int newFontSize = (int) (labelFont.getSize() * widthRatio);
+    int componentHeight = getHeight();
 
-        int stringWidth = getFontMetrics(labelFont).stringWidth(labelText);
-        int componentWidth = getWidth();
+    int fontSizeToUse = Math.min(newFontSize, componentHeight);
 
-        double widthRatio = (double) componentWidth / (double) stringWidth;
-
-        int newFontSize = (int) (labelFont.getSize() * widthRatio);
-        int componentHeight = getHeight();
-
-        int fontSizeToUse = Math.min(newFontSize, componentHeight);
-
-        setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
-    }
+    setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+  }
 
 }

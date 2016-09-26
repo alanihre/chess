@@ -6,20 +6,20 @@ import javax.swing.*;
 
 class Window extends JFrame {
 
-    private static final int WINDOW_SIZE_WIDTH = 500;
-    private static final int WINDOW_SIZE_HEIGHT = 500;
+  private static final int WINDOW_SIZE_WIDTH = 500;
+  private static final int WINDOW_SIZE_HEIGHT = 500;
 
-    Window() {
-        super("Chess");
-    }
+  Window() {
+    super("Chess");
+  }
 
-    void createAndShowGUI() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  void createAndShowGUI() {
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Dimension windowSize = new Dimension(WINDOW_SIZE_WIDTH, WINDOW_SIZE_HEIGHT);
-        setPreferredSize(windowSize);
+    Dimension windowSize = new Dimension(WINDOW_SIZE_WIDTH, WINDOW_SIZE_HEIGHT);
+    setPreferredSize(windowSize);
 
-        pack();
-        setVisible(true);
-    }
+    pack();
+    setVisible(true);
+  }
 }

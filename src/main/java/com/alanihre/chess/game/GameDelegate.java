@@ -5,16 +5,16 @@ import com.alanihre.chess.piece.PieceType;
 
 public interface GameDelegate {
 
-    void gameReady(Game game);
+  void gameReady(Game game);
 
-    void requestMove(Piece.PieceColor color);
+  void requestMove(Piece.PieceColor color);
 
-    void pieceCaptured(Piece piece, String coordinate);
+  void pieceCaptured(Piece piece, String coordinate);
 
-    void pieceMoved(Piece piece, String coordinate);
+  void pieceMoved(Piece piece, String coordinate);
 
-    PieceType requestNewPieceOfType(PieceType[] availableTypes, String message);
+  PieceType requestNewPieceOfType(PieceType[] availableTypes, String message);
 
-    void gameEnded(String message);
+  void gameEnded(String message);
 
 }

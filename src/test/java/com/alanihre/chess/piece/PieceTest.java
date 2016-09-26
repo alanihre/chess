@@ -11,54 +11,54 @@ import static org.junit.Assert.assertFalse;
 
 public class PieceTest extends PieceTestBase {
 
-    private static PieceType PIECE_TYPE = PieceType.BISHOP;
-    private static Piece.PieceColor PIECE_COLOR = Piece.PieceColor.BLACK;
-    //@Rule
-    //public ExpectedException thrown = ExpectedException.none();
+  private static PieceType PIECE_TYPE = PieceType.BISHOP;
+  private static Piece.PieceColor PIECE_COLOR = Piece.PieceColor.BLACK;
+  //@Rule
+  //public ExpectedException thrown = ExpectedException.none();
 
-    @Before
-    public void setUp() {
-        piece = new StubPiece(PIECE_TYPE, PIECE_COLOR);
-        super.setUp();
-    }
+  @Before
+  public void setUp() {
+    piece = new StubPiece(PIECE_TYPE, PIECE_COLOR);
+    super.setUp();
+  }
 
-    @Test
-    public void testConstructorSetsType() {
-        assertEquals(PIECE_TYPE, piece.getType());
-    }
+  @Test
+  public void testConstructorSetsType() {
+    assertEquals(PIECE_TYPE, piece.getType());
+  }
 
-    @Test
-    public void testConstructorSetsColor() {
-        assertEquals(PIECE_COLOR, piece.getColor());
-    }
+  @Test
+  public void testConstructorSetsColor() {
+    assertEquals(PIECE_COLOR, piece.getColor());
+  }
 
-    @Test
-    public void testNumberOfMovesIsInitiallyZero() {
-        assertEquals(0, piece.getNumberOfMoves());
-    }
+  @Test
+  public void testNumberOfMovesIsInitiallyZero() {
+    assertEquals(0, piece.getNumberOfMoves());
+  }
 
-    @Test
-    public void testIncreaseNumberOfMoves() {
-        piece.increaseNumberOfMoves();
-        assertEquals(1, piece.getNumberOfMoves());
-    }
+  @Test
+  public void testIncreaseNumberOfMoves() {
+    piece.increaseNumberOfMoves();
+    assertEquals(1, piece.getNumberOfMoves());
+  }
 
-    @Test
-    public void testMovingPiece() {
-        Position newPosition = new Position(5, 6);
-        Square newSquare = board.getSquareAtPosition(newPosition);
-        piece.moveTo(newSquare);
-        assertFalse(square.hasPiece());
-        assertEquals(piece, newSquare.getPiece());
-    }
+  @Test
+  public void testMovingPiece() {
+    Position newPosition = new Position(5, 6);
+    Square newSquare = board.getSquareAtPosition(newPosition);
+    piece.moveTo(newSquare);
+    assertFalse(square.hasPiece());
+    assertEquals(piece, newSquare.getPiece());
+  }
 
-    @Test
-    public void testMovingPieceIncreasesNumberOfMoves() {
-        Position newPosition = new Position(5, 6);
-        Square newSquare = board.getSquareAtPosition(newPosition);
-        piece.moveTo(newSquare);
-        assertEquals(1, piece.getNumberOfMoves());
-    }
+  @Test
+  public void testMovingPieceIncreasesNumberOfMoves() {
+    Position newPosition = new Position(5, 6);
+    Square newSquare = board.getSquareAtPosition(newPosition);
+    piece.moveTo(newSquare);
+    assertEquals(1, piece.getNumberOfMoves());
+  }
 /*
     @Test
     public void testCalculateForwardsMovementPath() {

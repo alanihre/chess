@@ -6,25 +6,25 @@ import com.alanihre.chess.piece.movement.PieceMovement;
 
 public class King extends Piece {
 
-    private static final int MOVE_RANGE = 1;
+  private static final int MOVE_RANGE = 1;
 
-    public King(PieceColor color) {
-        super(PieceType.KING, color);
+  public King(PieceColor color) {
+    super(PieceType.KING, color);
 
-        FourDirectionMovement fourDirectionMovement = new FourDirectionMovement();
-        PieceMovement movement = new LimitedRangeMovement(fourDirectionMovement, MOVE_RANGE);
-        setMovement(movement);
+    FourDirectionMovement fourDirectionMovement = new FourDirectionMovement();
+    PieceMovement movement = new LimitedRangeMovement(fourDirectionMovement, MOVE_RANGE);
+    setMovement(movement);
+  }
+
+  public String getPieceName() {
+    return "king";
+  }
+
+  public char getSymbol() {
+    if (getColor() == PieceColor.WHITE) {
+      return '♔';
+    } else {
+      return '♚';
     }
-
-    public String getPieceName() {
-        return "king";
-    }
-
-    public char getSymbol() {
-        if (getColor() == PieceColor.WHITE) {
-            return '♔';
-        } else {
-            return '♚';
-        }
-    }
+  }
 }

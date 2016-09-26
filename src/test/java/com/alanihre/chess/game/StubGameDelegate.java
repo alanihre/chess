@@ -5,27 +5,27 @@ import com.alanihre.chess.piece.PieceType;
 
 public class StubGameDelegate implements GameDelegate {
 
-    public void gameReady(Game game) {
+  public void gameReady(Game game) {
 
-    }
+  }
 
-    public void requestMove(Piece.PieceColor color) {
+  public void requestMove(Piece.PieceColor color) {
 
-    }
+  }
 
-    public void pieceCaptured(Piece piece, String coordinate) {
+  public void pieceCaptured(Piece piece, String coordinate) {
 
-    }
+  }
 
-    public void pieceMoved(Piece piece, String coordinate) {
+  public void pieceMoved(Piece piece, String coordinate) {
 
-    }
+  }
 
-    public PieceType requestNewPieceOfType(PieceType[] availableTypes, String message) {
-        return null;
-    }
+  public PieceType requestNewPieceOfType(PieceType[] availableTypes, String message) {
+    return null;
+  }
 
-    public void gameEnded(String message) {
+  public void gameEnded(String message) {
 
-    }
+  }
 }
