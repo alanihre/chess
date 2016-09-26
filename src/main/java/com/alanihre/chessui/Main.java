@@ -16,7 +16,7 @@ public class Main {
                 uiBoard.setSize(window.getSize());
                 window.getContentPane().add(uiBoard);
 
-                GameDelegate delegate = new UIChess(uiBoard);
+                GameDelegate delegate = new UIChess(uiBoard, window);
                 Game game = new ClassicChessGame(delegate);
             }
         });

@@ -114,11 +114,4 @@ class UIBoard extends JComponent {
             this.sourcePosition = null;
         }
     }
-
-    public String showPieceTypeSelection(String message, String[] pieceTypes) {
-        return (String) JOptionPane.showInputDialog(null, "Pick a new piece type",
-                message, JOptionPane.QUESTION_MESSAGE, null,
-                pieceTypes,
-                pieceTypes[0]);
-    }
 }

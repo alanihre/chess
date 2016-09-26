@@ -5,12 +5,16 @@ import com.alanihre.chess.game.GameDelegate;
 import com.alanihre.chess.piece.Piece;
 import com.alanihre.chess.piece.PieceType;
 
+import javax.swing.*;
+
 class UIChess implements GameDelegate {
 
     private UIBoard uiBoard;
+    private JFrame window;
 
-    public UIChess(UIBoard uiBoard) {
+    public UIChess(UIBoard uiBoard, JFrame window) {
         this.uiBoard = uiBoard;
+        this.window = window;
     }
 
     public void gameReady(Game game) {
@@ -35,10 +39,17 @@ class UIChess implements GameDelegate {
         for (int i = 0; i < availablePieces.length; i++) {
             availablePiecesStrings[i] = availablePieces[i].toString();
         }
-        return PieceType.valueOf(uiBoard.showPieceTypeSelection(message, availablePiecesStrings).toUpperCase());
+        return PieceType.valueOf(showPieceTypeSelection(message, availablePiecesStrings).toUpperCase());
     }
 
     public void gameEnded(String message) {
-        System.out.println("Game ended");
+        JOptionPane.showMessageDialog(window, "Game ended");
+    }
+
+    private String showPieceTypeSelection(String message, String[] pieceTypes) {
+        return (String) JOptionPane.showInputDialog(window, "Pick a new piece type",
+                message, JOptionPane.QUESTION_MESSAGE, null,
+                pieceTypes,
+                pieceTypes[0]);
     }
 }
