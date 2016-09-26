@@ -30,8 +30,12 @@ class UIChess implements GameDelegate {
         uiBoard.drawBoard();
     }
 
-    public PieceType requestNewPieceOfType(PieceType[] availableTypes, String message) {
-        return null;
+    public PieceType requestNewPieceOfType(PieceType[] availablePieces, String message) {
+        String[] availablePiecesStrings = new String[availablePieces.length];
+        for (int i = 0; i < availablePieces.length; i++) {
+            availablePiecesStrings[i] = availablePieces[i].toString();
+        }
+        return PieceType.valueOf(uiBoard.showPieceTypeSelection(message, availablePiecesStrings).toUpperCase());
     }
 
     public void gameEnded(String message) {
