@@ -17,6 +17,10 @@ class UIBoard extends JComponent {
   private Position sourcePosition;
   private Game game;
 
+  private static final Color black = new Color(248, 213, 131);
+  private static final Color white = new Color(237, 237, 237);
+  private static final Color highlightSelected = new Color(120, 120, 230);
+
   UIBoard() {
     super();
 
@@ -60,14 +64,16 @@ class UIBoard extends JComponent {
 
         UIPiece uiPiece = new UIPiece(piece, position, pieceSize);
 
-        if ((i % 2 ^ pieceIndex % 2) != 0) {
-          uiPiece.setBackground(new Color(248, 213, 131));
-        } else {
-          uiPiece.setBackground(new Color(237, 237, 237));
+        uiPiece.setBackground(colorAtPosition(i, pieceIndex));
+        if (sourcePosition != null) {
+          if (uiPiece.getPosition().equals(sourcePosition)) {
+            uiPiece.setBackground(highlightSelected);
+          }
         }
 
+        final UIBoard uiBoard = this;
+        
         add(uiPiece);
-
         uiPiece.addMouseListener(new MouseAdapter() {
           public void mouseClicked(MouseEvent e) {
             UIPiece uiPiece = (UIPiece) e.getComponent();
@@ -81,7 +87,7 @@ class UIBoard extends JComponent {
               move(sourcePosition, position);
               sourcePosition = null;
             }
-
+            uiBoard.drawBoard();
           }
         });
       }
@@ -112,6 +118,17 @@ class UIBoard extends JComponent {
     } catch (GamePlayException exception) {
       JOptionPane.showMessageDialog(this, exception.getMessage());
       this.sourcePosition = null;
+    }
+  }
+
+  /**
+   * Standard chess tile color at the given position.
+   */
+  private Color colorAtPosition(int x, int y) {
+    if (((x + y) % 2) != 0) {
+      return black;
+    } else {
+      return white;
     }
   }
 }
